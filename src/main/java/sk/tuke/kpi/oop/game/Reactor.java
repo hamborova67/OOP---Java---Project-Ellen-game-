@@ -1,2 +1,49 @@
-package sk.tuke.kpi.oop.game;public class Reactor {
+package sk.tuke.kpi.oop.game;
+
+import sk.tuke.kpi.gamelib.framework.AbstractActor;
+import sk.tuke.kpi.gamelib.graphics.Animation;
+
+public class Reactor extends AbstractActor {
+    private int temperature;
+    private int damage;
+    private Animation normalAnimation;
+
+    public Reactor(){
+        this.temperature = 0;
+        this.damage = 0;
+        this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
+        setAnimation(normalAnimation);
+    }
+    public int getTemperature(){
+        return this.temperature;
+    }
+    public int getDamage(){
+        return this.damage;
+    }
+    public void increaseTemperature(int increment){
+
+            this.temperature =  this.temperature + increment;
+
+            if(getTemperature()>=2000){
+                this.damage =   ((this.temperature-2000) / 40) ;
+            }
+            if(getDamage()>=33){
+                if(getDamage()>=66){
+                    this.temperature = this.temperature + increment+(increment/2);
+                }else{
+                    this.temperature = this.temperature + (increment*2);
+                }
+            }
+            if(getTemperature()>=4000){
+                this.normalAnimation = new Animation("sprites/reactor_hot.png", 80, 80, 0.05f, Animation.PlayMode.LOOP_PINGPONG);
+                setAnimation(normalAnimation);
+            }
+            if(getTemperature()>=6000){
+                this.normalAnimation = new Animation("sprites/reactor_broken.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
+                setAnimation(normalAnimation);
+            }
+
+    }
+
+
 }
