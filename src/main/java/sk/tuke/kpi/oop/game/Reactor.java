@@ -52,6 +52,23 @@ public class Reactor extends AbstractActor {
                 setAnimation(normalAnimation);
             }
         }
+        public void  decreaseTemperature(int decrement){
+
+            if(getDamage()>=50 ){
+                this.temperature =  this.temperature - (decrement/2);
+                if(getDamage()>=100){
+                    this.temperature =  getTemperature();
+                }
+
+            }else{
+                this.temperature =  this.temperature - decrement;
+            }
+
+            if(getTemperature()<=4000){
+                this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
+                setAnimation(normalAnimation);
+        }
+
 
 
 
