@@ -22,8 +22,6 @@ public class Reactor extends AbstractActor {
     }
     public void increaseTemperature(int increment){
 
-
-
             this.temperature =  this.temperature + increment;
 
             if(getTemperature()>=2000){
@@ -43,33 +41,36 @@ public class Reactor extends AbstractActor {
                 this.temperature = 6000;
             }
 
-            if(getTemperature()>=4000){
-                this.normalAnimation = new Animation("sprites/reactor_hot.png", 80, 80, 0.05f, Animation.PlayMode.LOOP_PINGPONG);
-                setAnimation(normalAnimation);
-            }
-            if(getTemperature()>=6000){
-                this.normalAnimation = new Animation("sprites/reactor_broken.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
-                setAnimation(normalAnimation);
-            }
+        updateAnimation();
         }
-        public void  decreaseTemperature(int decrement){
+        public void  decreaseTemperature(int decrement) {
 
-            if(getDamage()>=50 ){
-                this.temperature =  this.temperature - (decrement/2);
-                if(getDamage()>=100){
-                    this.temperature =  getTemperature();
+            if (getDamage() >= 50) {
+                this.temperature = this.temperature - (decrement / 2);
+                if (getDamage() >= 100) {
+                    this.temperature = getTemperature();
                 }
 
-            }else{
-                this.temperature =  this.temperature - decrement;
+            } else {
+                this.temperature = this.temperature - decrement;
             }
 
-            if(getTemperature()<=4000){
-                this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
-                setAnimation(normalAnimation);
+            updateAnimation();
         }
 
-
+        public void updateAnimation(){
+                if(getTemperature()>=4000){
+                    this.normalAnimation = new Animation("sprites/reactor_hot.png", 80, 80, 0.05f, Animation.PlayMode.LOOP_PINGPONG);
+                    setAnimation(normalAnimation);
+                }
+                if(getTemperature()>=6000){
+                    this.normalAnimation = new Animation("sprites/reactor_broken.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
+                    setAnimation(normalAnimation);
+                }
+                if(getTemperature()<=4000){
+                    this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
+                    setAnimation(normalAnimation);
+                }
 
 
 }
