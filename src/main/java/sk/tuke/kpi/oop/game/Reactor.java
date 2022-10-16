@@ -74,4 +74,25 @@ public class Reactor extends AbstractActor {
 
 
 }
+        public void repairWith (Hammer hammer){
+            if(hammer==NULL){
+                return;
+            }
+            if(getDamage()>=50){
+                this.damage=this.damage-50;
+            }else{
+                this.damage=0;
+            }
+            //Math.max(0,30);Math.max(0,-30);
+            hammer.use();
+        }
+        public void turnOn(){
+
+        }
+        public void turnOff(){
+
+        }
+        public int isRunning(){
+
+        }
     }
