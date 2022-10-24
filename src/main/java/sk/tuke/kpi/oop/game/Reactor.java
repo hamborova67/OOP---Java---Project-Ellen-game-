@@ -10,11 +10,15 @@ import sk.tuke.kpi.oop.game.tools.Hammer;
 public class Reactor extends AbstractActor {
     private int temperature;
     private int damage;
+    private int running;
+    Light light;
     private Animation normalAnimation;
 
     public Reactor(){
         this.temperature = 0;
         this.damage = 0;
+        this.running = 0;
+        this.light = light;
         this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
         setAnimation(normalAnimation);
         turnOff();
@@ -27,7 +31,9 @@ public class Reactor extends AbstractActor {
         return this.damage;
     }
     public void increaseTemperature(int increment){
-
+            if(running==0){
+                return;
+            }
             this.temperature =  this.temperature + increment;
 
             if(getTemperature()>=2000){
@@ -94,18 +100,29 @@ public class Reactor extends AbstractActor {
             hammer.use();
         }
         public void turnOn(){
-            this.temperature =temperature;
+            running=1;
         }
         public void turnOff(){
+            running=0;
             this.temperature=0;
+            updateAnimation();
 
+        }
+        public int isRunning(){
+            return running;
         }
 
 
-    @Override
-    public void addedToScene(@NotNull Scene scene) {
-        super.addedToScene(scene);
-        // v metode addedToScene triedy Reactor
-        new PerpetualReactorHeating(1).scheduleFor(this);
-    }
+        public void addLight(){
+            light.setElectricityFlow(true);
+        }
+        public void removeLight(){
+            light.setElectricityFlow(false);
+        }
+        @Override
+        public void addedToScene(@NotNull Scene scene) {
+            super.addedToScene(scene);
+            // v metode addedToScene triedy Reactor
+            new PerpetualReactorHeating(1).scheduleFor(this);
+        }
 }
