@@ -1,7 +1,11 @@
 package sk.tuke.kpi.oop.game;
 
+import org.jetbrains.annotations.NotNull;
+import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
+import sk.tuke.kpi.oop.game.actions.PerpetualReactorHeating;
+import sk.tuke.kpi.oop.game.tools.Hammer;
 
 public class Reactor extends AbstractActor {
     private int temperature;
@@ -13,6 +17,8 @@ public class Reactor extends AbstractActor {
         this.damage = 0;
         this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
         setAnimation(normalAnimation);
+        turnOff();
+
     }
     public int getTemperature(){
         return this.temperature;
@@ -64,6 +70,7 @@ public class Reactor extends AbstractActor {
                     setAnimation(normalAnimation);
                 }
                 if(getTemperature()>=6000){
+                    turnOff();
                     this.normalAnimation = new Animation("sprites/reactor_broken.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
                     setAnimation(normalAnimation);
                 }
@@ -75,7 +82,7 @@ public class Reactor extends AbstractActor {
 
 }
         public void repairWith (Hammer hammer){
-            if(hammer==NULL){
+            if(hammer==null){
                 return;
             }
             if(getDamage()>=50){
@@ -87,12 +94,18 @@ public class Reactor extends AbstractActor {
             hammer.use();
         }
         public void turnOn(){
-
+            this.temperature =temperature;
         }
         public void turnOff(){
+            this.temperature=0;
 
         }
-        public int isRunning(){
 
-        }
+
+    @Override
+    public void addedToScene(@NotNull Scene scene) {
+        super.addedToScene(scene);
+        // v metode addedToScene triedy Reactor
+        new PerpetualReactorHeating(1).scheduleFor(this);
     }
+}
