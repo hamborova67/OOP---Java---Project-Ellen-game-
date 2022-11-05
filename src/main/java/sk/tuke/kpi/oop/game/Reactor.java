@@ -104,7 +104,7 @@ public class Reactor extends AbstractActor {
         }
         public void turnOff(){
             running=0;
-            this.temperature=0;
+            this.temperature=getTemperature();
             updateAnimation();
 
         }
