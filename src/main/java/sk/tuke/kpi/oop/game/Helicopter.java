@@ -9,12 +9,12 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 
 public class Helicopter extends AbstractActor {
 
-    private Animation helicopterAnimation;
+
 
     private int x,y;
 
     public Helicopter(){
-        this.helicopterAnimation = new Animation("sprites/heli.png",64, 64, 0.2f, Animation.PlayMode.LOOP_PINGPONG);
+        Animation helicopterAnimation = new Animation("sprites/heli.png",64, 64, 0.2f, Animation.PlayMode.LOOP_PINGPONG);
         setAnimation(helicopterAnimation);
     }
     public void searchAndDestroy() {

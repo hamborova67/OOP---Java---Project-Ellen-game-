@@ -25,7 +25,7 @@ public class SmartCooler extends Cooler{
             turnOn();
         }
 
-        if(isOn()==1){
+        if(isOn()==true){
             reactor.decreaseTemperature(900);
         }
     }

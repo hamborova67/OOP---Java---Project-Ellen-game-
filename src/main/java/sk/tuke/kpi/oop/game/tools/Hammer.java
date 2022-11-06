@@ -11,7 +11,7 @@ public class Hammer extends BreakableTool{
         super(uses); //vzdy ako prvy volat
         this.hammerAnimation = new Animation("sprites/hammer.png");
         setAnimation(this.hammerAnimation);
-        //this.remainingUses=1;
+        this.remainingUses=1;
 
     }
     public int getRemainingUses(){

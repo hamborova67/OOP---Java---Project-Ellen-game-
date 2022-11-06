@@ -12,7 +12,6 @@ public class PowerSwitch extends AbstractActor {
 
 
         this.switchable =  switchable;
-        this.controllerAnimation = new Animation("sprites/switch.png");
         setAnimation(this.controllerAnimation);
 
     }
