@@ -11,7 +11,7 @@ public class Reactor extends AbstractActor {
     private int temperature;
     private int damage;
     private int running;
-    Light light;
+    private Light light;
     private Animation normalAnimation;
 
     public Reactor(){
