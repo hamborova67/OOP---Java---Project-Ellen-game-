@@ -21,12 +21,12 @@ public class PowerSwitch extends AbstractActor {
     }
 
     public void switchOn(){
-            switchable.turnOn();
+            //turnOn();
             getAnimation().setTint(Color.WHITE);
     }
 
     public void switchOff(){
-            switchable.turnOff();
+            //switchable.turnOff();
             getAnimation().setTint(Color.GRAY);
 
     }
