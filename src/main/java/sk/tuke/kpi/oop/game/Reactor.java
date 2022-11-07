@@ -10,14 +10,14 @@ import sk.tuke.kpi.oop.game.tools.Hammer;
 public class Reactor extends AbstractActor {
     private int temperature;
     private int damage;
-    private int running;
+    private boolean running;
     private Light light;
     private Animation normalAnimation;
 
     public Reactor(){
         this.temperature = 0;
         this.damage = 0;
-        this.running = 0;
+        this.running = false;
         this.light = light;
         this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
         setAnimation(normalAnimation);
@@ -31,7 +31,7 @@ public class Reactor extends AbstractActor {
         return this.damage;
     }
     public void increaseTemperature(int increment){
-            if(running==0){
+            if(running==false){
                 return;
             }
             this.temperature =  this.temperature + increment;
@@ -51,6 +51,9 @@ public class Reactor extends AbstractActor {
             if(getDamage()>100 && getTemperature()>6000){
                 this.damage = 100;
                 this.temperature = 6000;
+                turnOff();
+
+
             }
 
         updateAnimation();
@@ -76,7 +79,6 @@ public class Reactor extends AbstractActor {
                     setAnimation(normalAnimation);
                 }
                 if(getTemperature()>=6000){
-                    turnOff();
                     this.normalAnimation = new Animation("sprites/reactor_broken.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
                     setAnimation(normalAnimation);
                 }
@@ -100,15 +102,15 @@ public class Reactor extends AbstractActor {
             hammer.use();
         }
         public void turnOn(){
-            running=1;
+            running=true;
         }
         public void turnOff(){
-            running=0;
+            running=false;
             this.temperature=getTemperature();
             updateAnimation();
 
         }
-        public int isRunning(){
+        public boolean isRunning(){
             return running;
         }
 

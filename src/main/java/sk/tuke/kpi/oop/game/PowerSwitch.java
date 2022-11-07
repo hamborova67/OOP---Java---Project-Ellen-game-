@@ -10,12 +10,12 @@ public class PowerSwitch extends AbstractActor {
     private int switch01;
     public PowerSwitch(Switchable switchable){
 
-
         this.switchable =  switchable;
         setAnimation(this.controllerAnimation);
 
     }
-    public Switchable getSwitchable(){
+    
+    public Switchable getDevice(){
         return this.switchable;
     }
 

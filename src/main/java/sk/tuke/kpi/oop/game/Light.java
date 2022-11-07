@@ -6,19 +6,19 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 public class Light extends AbstractActor{
     private Animation lightAnimation;
 
-    private int pom;
+    private boolean pom;
     private boolean flow;
     public Light(){
 
-        this.pom=0;
+        this.pom=false;
         this.flow = false;
         this.lightAnimation = new Animation("sprites/light_off.png");
         setAnimation(lightAnimation);
     }
 
     public void toggle(){
-        if(this.pom==0){
-            this.pom=1;
+        if(this.pom==false){
+            this.pom=true;
             if(flow==true){
                 this.lightAnimation = new Animation("sprites/light_on.png");
                 setAnimation(lightAnimation);
@@ -28,12 +28,12 @@ public class Light extends AbstractActor{
         }
         this.lightAnimation = new Animation("sprites/light_off.png");
         setAnimation(lightAnimation);
-        this.pom=0;
+        this.pom=false;
     }
     public void setElectricityFlow(boolean flow){
         this.flow = flow;
         if(this.flow==true){
-            if(this.pom==1){
+            if(this.pom==true){
                 this.lightAnimation = new Animation("sprites/light_on.png");
                 setAnimation(lightAnimation);
                 return;

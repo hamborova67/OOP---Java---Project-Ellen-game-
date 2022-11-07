@@ -26,12 +26,11 @@ public class Cooler extends AbstractActor {
         if(reactor==null){
             return;
         }
-        if(pom==true){
+        if(pom==true && reactor.isRunning()){
             if(reactor.getTemperature()>0){
                 reactor.decreaseTemperature(1);
             }
         }
-
     }
 
 
