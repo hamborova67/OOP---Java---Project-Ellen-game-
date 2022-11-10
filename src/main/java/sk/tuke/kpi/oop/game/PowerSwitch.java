@@ -11,6 +11,7 @@ public class PowerSwitch extends AbstractActor implements Switchable {
     public PowerSwitch(Switchable switchable){
 
         this.switchable =  switchable;
+        this.controllerAnimation = new Animation("sprites/switch.png",16,16);
         setAnimation(this.controllerAnimation);
 
     }
