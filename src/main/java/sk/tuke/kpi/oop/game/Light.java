@@ -42,12 +42,22 @@ public class Light extends AbstractActor implements Switchable{
         this.lightAnimation = new Animation("sprites/light_off.png");
         setAnimation(lightAnimation);
     }
+    @Override
     public void turnOn(){
-        this.pom = true;
+        if(this.flow) {
+            this.lightAnimation = new Animation("sprites/light_on.png");
+            setAnimation(lightAnimation);
+            this.pom = true;
+        }
+
     }
+    @Override
     public void turnOff(){
+        this.lightAnimation = new Animation("sprites/light_off.png");
+        setAnimation(lightAnimation);
         this.pom = false;
     }
+    @Override
     public boolean isOn(){
         return this.pom;
     }
