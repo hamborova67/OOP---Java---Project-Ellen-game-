@@ -7,7 +7,7 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.actions.PerpetualReactorHeating;
 import sk.tuke.kpi.oop.game.tools.Hammer;
 
-public class Reactor extends AbstractActor {
+public class Reactor extends AbstractActor implements Switchable{
     private int temperature;
     private int damage;
     private boolean running;
@@ -31,7 +31,7 @@ public class Reactor extends AbstractActor {
         return this.damage;
     }
     public void increaseTemperature(int increment){
-            if(running==false){
+            if(!running){
                 return;
             }
             this.temperature =  this.temperature + increment;
@@ -101,16 +101,19 @@ public class Reactor extends AbstractActor {
             //Math.max(0,30);Math.max(0,-30);
             hammer.use();
         }
+        @Override
         public void turnOn(){
             running=true;
         }
+        @Override
         public void turnOff(){
             running=false;
             this.temperature=getTemperature();
             updateAnimation();
 
         }
-        public boolean isRunning(){
+         @Override
+        public boolean isOn(){
             return running;
         }
 
