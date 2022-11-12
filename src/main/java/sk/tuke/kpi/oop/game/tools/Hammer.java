@@ -7,8 +7,8 @@ public class Hammer extends BreakableTool{
     public Hammer(){
         this(1);
     }
-    public Hammer(int uses){
-        super(uses); //vzdy ako prvy volat
+    public Hammer(int remainingUses){
+        super(remainingUses); //vzdy ako prvy volat
         this.hammerAnimation = new Animation("sprites/hammer.png");
         setAnimation(this.hammerAnimation);
         this.remainingUses=1;
@@ -17,11 +17,13 @@ public class Hammer extends BreakableTool{
     public int getRemainingUses(){
         return this.remainingUses;
     }
-    public void use(){
-        this.remainingUses--;
-        if(this.remainingUses==0){
+    public void useWith() {
+        if(this.remainingUses<=0){
             getScene().removeActor(this);
+            return;
         }
+        this.remainingUses--;
+
     }
 
 }

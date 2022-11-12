@@ -5,6 +5,7 @@ import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.actions.PerpetualReactorHeating;
+import sk.tuke.kpi.oop.game.tools.FireExtinguisher;
 import sk.tuke.kpi.oop.game.tools.Hammer;
 
 import java.util.HashSet;
@@ -110,7 +111,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
                 this.damage=0;
             }
             //Math.max(0,30);Math.max(0,-30);
-            hammer.use();
+            hammer.useWith();
         }
         @Override
         public void turnOn(){
@@ -158,6 +159,19 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             new PerpetualReactorHeating(1).scheduleFor(this);
         }
 
+        public void extinguishWith(FireExtinguisher fireExtinguisher){
+            if(fireExtinguisher==null){
+                return;
+            }
+            if(this.getDamage()==100 && this.getTemperature()>4000){
+                this.temperature = 4000;
+                this.normalAnimation = new Animation("sprites/reactor_extinguished.png");
+                setAnimation(this.normalAnimation);
+            }
+            fireExtinguisher.useWith();
+
+
+        }
 
 
 

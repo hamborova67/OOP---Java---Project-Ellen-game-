@@ -21,11 +21,17 @@ public class PowerSwitch extends AbstractActor implements Switchable {
     }
 
     public void switchOn(){
+            if(switchable == null){
+                return;
+            }
             switchable.turnOn();
             getAnimation().setTint(Color.WHITE);
     }
 
     public void switchOff(){
+            if(switchable == null){
+                return;
+            }
             switchable.turnOff();
             getAnimation().setTint(Color.GRAY);
 
