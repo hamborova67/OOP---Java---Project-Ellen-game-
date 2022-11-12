@@ -4,7 +4,7 @@ import sk.tuke.kpi.gamelib.actions.Invoke;
 import sk.tuke.kpi.gamelib.framework.actions.Loop;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 
-public class DefectiveLight extends Light {
+public class DefectiveLight extends Light implements Repairable {
 
     private Light light;
     private int x;
@@ -28,6 +28,10 @@ public class DefectiveLight extends Light {
         }
     }
     public boolean repair(){
-        return false;
+
+        this.lightAnimation = new Animation("sprites/light_on.png");
+        setAnimation(lightAnimation);
+        lightAnimation.setFrameDuration(10);
+        return true;
     }
 }

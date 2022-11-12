@@ -22,9 +22,11 @@ public class Hammer extends BreakableTool{
         return this.remainingUses;
     }
     public void useWith(Reactor reactor) {
-        if(this==null){
+
+        if(reactor==null){
             return;
         }
+
 
         if(this.remainingUses<=0){
             getScene().removeActor(this);
