@@ -15,6 +15,7 @@ public class FireExtinguisher extends BreakableTool{
     public FireExtinguisher(int remainingUses){
         super(1);
         this.extinguisherAnimation = new Animation("sprites/extinguisher.png");
+
         setAnimation(this.extinguisherAnimation);
         this.remainingUses=1;
     }
@@ -29,4 +30,6 @@ public class FireExtinguisher extends BreakableTool{
         this.remainingUses--;
 
     }
+
+
 }

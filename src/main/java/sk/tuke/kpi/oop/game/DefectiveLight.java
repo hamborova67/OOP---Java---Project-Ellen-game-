@@ -27,7 +27,7 @@ public class DefectiveLight extends Light {
             setAnimation(lightAnimation);
         }
     }
-    public void repair(){
-
+    public boolean repair(){
+        return false;
     }
 }

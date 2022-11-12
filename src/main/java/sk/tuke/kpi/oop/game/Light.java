@@ -47,8 +47,9 @@ public class Light extends AbstractActor implements Switchable, EnergyConsumer{
         if(this.flow) {
             this.lightAnimation = new Animation("sprites/light_on.png");
             setAnimation(lightAnimation);
-            this.pom = true;
+
         }
+        this.pom = true;
 
     }
     @Override

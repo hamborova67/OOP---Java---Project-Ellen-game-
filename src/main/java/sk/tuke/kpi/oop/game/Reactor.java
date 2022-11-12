@@ -98,20 +98,19 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
                 }
 
 
-}       public boolean repair(){
-            return running;
-    }
-        public void repairWith (Hammer hammer){
-            if(hammer==null){
-                return;
-            }
+}       @Override
+        public boolean repair (){
+
             if(getDamage()>=50){
                 this.damage=this.damage-50;
+
             }else{
                 this.damage=0;
+
             }
-            //Math.max(0,30);Math.max(0,-30);
-            hammer.useWith();
+            // Math.max(0,30);Math.max(0,-30);
+
+            return true;
         }
         @Override
         public void turnOn(){
@@ -159,16 +158,19 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             new PerpetualReactorHeating(1).scheduleFor(this);
         }
 
-        public void extinguishWith(FireExtinguisher fireExtinguisher){
+        public boolean extinguish(FireExtinguisher fireExtinguisher){
             if(fireExtinguisher==null){
-                return;
+                return false;
             }
             if(this.getDamage()==100 && this.getTemperature()>4000){
                 this.temperature = 4000;
                 this.normalAnimation = new Animation("sprites/reactor_extinguished.png");
                 setAnimation(this.normalAnimation);
+                fireExtinguisher.useWith();
+                return true;
             }
             fireExtinguisher.useWith();
+            return false;
 
 
         }
