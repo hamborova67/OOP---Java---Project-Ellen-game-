@@ -12,15 +12,27 @@ public class Computer extends AbstractActor implements EnergyConsumer {
         setAnimation(animationComputer);
     }
     public int add(int a, int b){
+        if(flow == false){
+            return 0;
+        }
         return a + b;
     }
     public float add(float a, float b){
+        if(flow == false){
+            return 0;
+        }
         return a + b;
     }
     public int sub(int a, int b){
+        if(flow == false){
+            return 0;
+        }
         return a - b;
     }
     public float sub(float a, float b){
+        if(flow == false){
+            return 0;
+        }
         return a - b;
     }
 

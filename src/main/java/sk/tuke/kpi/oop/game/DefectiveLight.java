@@ -33,6 +33,7 @@ public class DefectiveLight extends Light implements Repairable {
         this.lightAnimation = new Animation("sprites/light_on.png");
         setAnimation(lightAnimation);
         lightAnimation.setFrameDuration(10);
+        cyklusBlik();
         return true;
     }
 }
