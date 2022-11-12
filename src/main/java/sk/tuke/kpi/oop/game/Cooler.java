@@ -26,7 +26,7 @@ public class Cooler extends AbstractActor implements Switchable{
         if(reactor==null){
             return;
         }
-        if(pom==true){
+        if(isOn()){
             if(reactor.getTemperature()>0){
                 reactor.decreaseTemperature(1);
             }
@@ -56,5 +56,6 @@ public class Cooler extends AbstractActor implements Switchable{
     public void addedToScene(@NotNull Scene scene) {
         super.addedToScene(scene);
         new Loop<>(new Invoke<>(this::coolReactor)).scheduleFor(this);
+
     }
 }

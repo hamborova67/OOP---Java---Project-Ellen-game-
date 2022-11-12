@@ -7,11 +7,17 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.actions.PerpetualReactorHeating;
 import sk.tuke.kpi.oop.game.tools.Hammer;
 
-public class Reactor extends AbstractActor implements Switchable{
+import java.util.HashSet;
+import java.util.Set;
+
+public class Reactor extends AbstractActor implements Switchable, Repairable{
     private int temperature;
     private int damage;
     private boolean running;
     private Light light;
+    private Computer comp;
+    private Set<EnergyConsumer> devices;
+    private EnergyConsumer energyConsumer;
     private Animation normalAnimation;
 
     public Reactor(){
@@ -19,6 +25,9 @@ public class Reactor extends AbstractActor implements Switchable{
         this.damage = 0;
         this.running = false;
         this.light = light;
+        this.comp = comp;
+
+        devices = new HashSet<>();
         this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
         setAnimation(normalAnimation);
         turnOff();
@@ -88,7 +97,9 @@ public class Reactor extends AbstractActor implements Switchable{
                 }
 
 
-}
+}       public boolean repair(){
+            return running;
+    }
         public void repairWith (Hammer hammer){
             if(hammer==null){
                 return;
@@ -118,16 +129,36 @@ public class Reactor extends AbstractActor implements Switchable{
         }
 
 
-        public void addLight(){
-            light.setElectricityFlow(true);
+        public void addLight(Light light){
+            this.addDevice(light);
+
         }
-        public void removeLight(){
-            light.setElectricityFlow(false);
+        public void removeLight(Light light){
+            this.removeDevice(light);
+
+
         }
-        @Override
+
+        public void addDevice(EnergyConsumer energyConsumer){
+        if( energyConsumer != null){
+            this.devices.add(energyConsumer);
+            energyConsumer.setPowered(true);
+        }
+
+
+        }
+        public void removeDevice(EnergyConsumer energyConsumer){
+            energyConsumer.setPowered(false);
+            this.devices.remove(energyConsumer);
+
+        }
+    @Override
         public void addedToScene(@NotNull Scene scene) {
             super.addedToScene(scene);
-            // v metode addedToScene triedy Reactor
             new PerpetualReactorHeating(1).scheduleFor(this);
         }
+
+
+
+
 }
