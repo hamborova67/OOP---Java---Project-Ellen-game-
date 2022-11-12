@@ -4,7 +4,7 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.DefectiveLight;
 import sk.tuke.kpi.oop.game.Reactor;
 
-public class Wrench extends BreakableTool{
+public class Wrench extends BreakableTool<DefectiveLight>{
     private Animation wrenchAnimation;
     private int remainingUses;
     private DefectiveLight defectiveLight;
@@ -23,7 +23,7 @@ public class Wrench extends BreakableTool{
     public int getRemainingUses(){
         return this.remainingUses;
     }
-    public void useWith(DefectiveLight defectiveLight) {
+    public void useWith() {
 
         if(defectiveLight==null){
             return;
@@ -33,7 +33,7 @@ public class Wrench extends BreakableTool{
             getScene().removeActor(this);
             return;
         }
-        this.defectiveLight = defectiveLight;
+        this.getDefectiveLight(defectiveLight);
         defectiveLight.repair();
         this.remainingUses--;
         if(this.remainingUses<=0){
@@ -41,5 +41,9 @@ public class Wrench extends BreakableTool{
 
         }
 
+    }
+
+    public void getDefectiveLight(DefectiveLight defectiveLight) {
+        this.defectiveLight = defectiveLight;
     }
 }
