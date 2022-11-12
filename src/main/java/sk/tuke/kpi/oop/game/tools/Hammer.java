@@ -2,7 +2,8 @@ package sk.tuke.kpi.oop.game.tools;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.Reactor;
 
-public class Hammer extends BreakableTool{
+
+public class Hammer extends BreakableTool<Reactor>{
     private Animation hammerAnimation;
     private int remainingUses;
     private Reactor reactor;
@@ -21,25 +22,18 @@ public class Hammer extends BreakableTool{
     public int getRemainingUses(){
         return this.remainingUses;
     }
-    public void useWith(Reactor reactor) {
 
+    public void useWith() {
+        this.getReactor(reactor);
         if(reactor==null){
             return;
         }
-
-
-        if(this.remainingUses<=0){
-            getScene().removeActor(this);
-            return;
-        }
-        this.getReactor(reactor);
         reactor.repair();
         this.remainingUses--;
         if(this.remainingUses<=0){
             getScene().removeActor(this);
 
         }
-
     }
     public void getReactor(Reactor reactor){
         this.reactor = reactor;
