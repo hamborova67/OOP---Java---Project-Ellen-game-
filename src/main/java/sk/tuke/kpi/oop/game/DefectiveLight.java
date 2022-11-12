@@ -6,8 +6,8 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 
 public class DefectiveLight extends Light implements Repairable {
 
-    private Light light;
-    private int x;
+
+
 
     private Animation lightAnimation;
     public DefectiveLight(){
@@ -18,8 +18,9 @@ public class DefectiveLight extends Light implements Repairable {
         new Loop<>(new Invoke<>(this::blik)).scheduleFor(this);
     }
     public void blik(){
-        this.x = (int)(Math.random() * 20);
-        if(this.x==1){
+
+        int x = (int)(Math.random() * 20);
+        if(x==1){
             this.lightAnimation = new Animation("sprites/light_on.png");
             setAnimation(lightAnimation);
         }else{
