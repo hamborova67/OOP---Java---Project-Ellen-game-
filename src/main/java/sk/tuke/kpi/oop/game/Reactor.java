@@ -97,18 +97,24 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
                 setAnimation(normalAnimation_broken);
 
             }
-            if(getTemperature()>4000 && isOn() && getDamage()<100){
-                setAnimation(normalAnimation_hot);
-            }
+            if(isOn()){
+                if(getTemperature()>4000 && getDamage()<100){
+                    setAnimation(normalAnimation_hot);
+                }
 
-                if(getTemperature()<=4000 && isOn()){
+                if(getTemperature()<=4000){
                     setAnimation(normalAnimation_on);
 
                 }
-                if(!running && getDamage()<100 ){
-                setAnimation(normalAnimation);
+
+            }else{
+                if(getDamage()<100 ){
+                    setAnimation(normalAnimation);
 
                 }
+            }
+
+
 
 
 }       @Override
