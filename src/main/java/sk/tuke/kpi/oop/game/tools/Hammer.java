@@ -4,17 +4,17 @@ import sk.tuke.kpi.oop.game.Reactor;
 
 
 public class Hammer extends BreakableTool<Reactor>{
-    private Animation hammerAnimation;
+
     private int remainingUses;
-    private Reactor reactor;
+
     public Hammer(){
         this(2);
     }
     public Hammer(int remainingUses){
 
         super(remainingUses); //vzdy ako prvy volat
-        this.hammerAnimation = new Animation("sprites/hammer.png");
-        setAnimation(this.hammerAnimation);
+        Animation hammerAnimation = new Animation("sprites/hammer.png");
+        setAnimation(hammerAnimation);
         this.remainingUses=1;
 
 
@@ -23,8 +23,7 @@ public class Hammer extends BreakableTool<Reactor>{
         return this.remainingUses;
     }
 
-    public void useWith() {
-        this.getReactor(reactor);
+    public void useWith(Reactor reactor) {
         if(reactor==null){
             return;
         }
@@ -35,9 +34,7 @@ public class Hammer extends BreakableTool<Reactor>{
 
         }
     }
-    public void getReactor(Reactor reactor){
-        this.reactor = reactor;
-    }
+
 
 
 

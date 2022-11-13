@@ -14,23 +14,20 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
     private int temperature;
     private int damage;
     private boolean running;
-    private Light light;
-    private Computer comp;
     private Set<EnergyConsumer> devices;
-    private EnergyConsumer energyConsumer;
+
     private Animation normalAnimation;
 
     public Reactor(){
         this.temperature = 0;
         this.damage = 0;
         this.running = false;
-        this.light = light;
-        this.comp = comp;
+
 
         devices = new HashSet<>();
         this.normalAnimation = new Animation("sprites/reactor.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
         setAnimation(normalAnimation);
-        turnOff();
+
 
     }
     public int getTemperature(){
@@ -43,23 +40,24 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             if(!running){
                 return;
             }
-        if(increment<=0){
-            return;
-        }
+            if(increment<=0){
+                return;
+            }
             this.temperature =  this.temperature + increment;
 
             if(getTemperature()>=2000){
                 this.damage =   ((this.temperature-2000) / 40) ;
             }
-            if(getDamage()>=33 ){
-                if(getDamage()>=66 ){
-                   this.temperature = this.temperature + increment+(increment/2);
+            if(getDamage()>=33 && getDamage()<=66 ){
+
+                   this.temperature = this.temperature + increment+ (increment/2);
                    this.damage =   ((this.temperature-2000) / 40) ;
-                }else{
-                    this.temperature = this.temperature + (increment*2);
-                    this.damage =   ((this.temperature-2000) / 40) ;
                 }
+            if(getDamage()>66){
+                    this.temperature = this.temperature + increment;
+                    this.damage =   ((this.temperature-2000) / 40) ;
             }
+
             if(getDamage()>100 && getTemperature()>6000){
                 this.damage = 100;
                 this.temperature = 6000;
@@ -77,7 +75,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             if(decrement<=0){
                 return;
             }
-            if(getDamage()>=100){
+            if(getDamage()>=100 && !running){
                 return;
             }
 
@@ -106,30 +104,39 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
                 }
                 if(getTemperature()<=4000){
                     this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
+
+                    if(!running && getDamage()<100 ){
+                        this.normalAnimation = new Animation("sprites/reactor.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
+                    }
                     setAnimation(normalAnimation);
                 }
 
 
+
 }       @Override
-        public boolean repair (){
-            if(getDamage() < 100){
-
-
-            if(getDamage()>=50){
-                this.damage=this.damage-50;
-            }else{
-                this.damage=0;
-            }
-        return true;
-            }else{
+        public boolean repair () {
+            if(getDamage()==0 && !running){
                 return false;
             }
-        // Math.max(0,30);Math.max(0,-30);
+
+            if (getDamage() >= 50) {
+                this.damage = this.damage - 50;
+
+            }
+            if (getDamage() < 50){
+                this.damage = 0;
+            }
+
+            return true;
 
     }
         @Override
         public void turnOn(){
+            if(getDamage() >= 100) {
+                return;
+            }
             running=true;
+            updateAnimation();
         }
         @Override
         public void turnOff(){
@@ -177,7 +184,9 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             if(fireExtinguisher==null){
                 return false;
             }
-            if(this.getDamage()==100 && this.getTemperature()>4000){
+
+
+            if(this.getDamage()>=100 && this.getTemperature()>4000){
                 this.temperature = 4000;
                 this.normalAnimation = new Animation("sprites/reactor_extinguished.png");
                 setAnimation(this.normalAnimation);

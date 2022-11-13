@@ -5,17 +5,17 @@ import sk.tuke.kpi.oop.game.DefectiveLight;
 import sk.tuke.kpi.oop.game.Reactor;
 
 public class Wrench extends BreakableTool<DefectiveLight>{
-    private Animation wrenchAnimation;
+
     private int remainingUses;
-    private DefectiveLight defectiveLight;
+
     public Wrench(){
         this(2);
     }
     public Wrench(int remainingUses){
 
         //super(remainingUses); //vzdy ako prvy volat
-        this.wrenchAnimation = new Animation("sprites/wrench.png");
-        setAnimation(this.wrenchAnimation);
+        Animation wrenchAnimation = new Animation("sprites/wrench.png");
+        setAnimation(wrenchAnimation);
         this.remainingUses=2;
 
 
@@ -23,7 +23,8 @@ public class Wrench extends BreakableTool<DefectiveLight>{
     public int getRemainingUses(){
         return this.remainingUses;
     }
-    public void useWith() {
+    @Override
+    public void useWith(DefectiveLight defectiveLight) {
 
         if(defectiveLight==null){
             return;
@@ -33,7 +34,6 @@ public class Wrench extends BreakableTool<DefectiveLight>{
             getScene().removeActor(this);
             return;
         }
-        this.getDefectiveLight(defectiveLight);
         defectiveLight.repair();
         this.remainingUses--;
         if(this.remainingUses<=0){
@@ -43,7 +43,5 @@ public class Wrench extends BreakableTool<DefectiveLight>{
 
     }
 
-    public void getDefectiveLight(DefectiveLight defectiveLight) {
-        this.defectiveLight = defectiveLight;
-    }
+
 }
