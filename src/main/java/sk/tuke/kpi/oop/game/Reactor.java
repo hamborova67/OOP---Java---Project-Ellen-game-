@@ -54,7 +54,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             }
             if(getDamage()>=33 && getDamage()<=66 ){
 
-                   this.temperature = this.temperature + increment+ (increment/2);
+                   this.temperature = this.temperature +  (increment/2);
                    this.damage =   ((this.temperature-2000) / 40) ;
                 }
             if(getDamage()>66){
@@ -62,9 +62,8 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
                     this.damage =   ((this.temperature-2000) / 40) ;
             }
 
-            if(getDamage()>=100 && getTemperature()>=6000){
+            if(getTemperature()>=6000){
                 this.damage = 100;
-                this.temperature = 6000;
                 turnOff();
 
 
@@ -82,24 +81,23 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             if(getDamage()>=100 && !running){
                 return;
             }
-            if (getDamage() >= 100) {
-                this.temperature = getTemperature();
 
-            }
-            if (getDamage() >= 50) {
+            if (getDamage() >= 50 && getDamage()<100) {
                 this.temperature = this.temperature - (decrement / 2);
-            }
-            if(getDamage()<50){
+            }else{
                 this.temperature = this.temperature - decrement;
             }
+
+
             updateAnimation();
         }
 
         public void updateAnimation(){
-            if(getTemperature()>=6000 && getDamage()>=100){
+            if(getDamage()>=100){
                 setAnimation(normalAnimation_broken);
+
             }
-            if(getTemperature()>=4000 && isOn() && getTemperature()<6000){
+            if(getTemperature()>4000 && isOn() && getDamage()<100){
                 setAnimation(normalAnimation_hot);
             }
 
@@ -137,8 +135,10 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             }
             running=true;
             updateAnimation();
-            if(energyConsumer!=null){
+            for (EnergyConsumer energyConsumer : this.devices)
+            {
                 energyConsumer.setPowered(true);
+
             }
 
         }
@@ -147,9 +147,14 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             running=false;
             this.temperature=getTemperature();
             updateAnimation();
-            if(energyConsumer!=null){
-                energyConsumer.setPowered(false);
-            }
+
+
+                for (EnergyConsumer energyConsumer : this.devices)
+                {
+                    energyConsumer.setPowered(false);
+
+                }
+
         }
          @Override
         public boolean isOn(){

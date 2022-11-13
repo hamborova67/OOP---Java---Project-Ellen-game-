@@ -1,11 +1,17 @@
 package sk.tuke.kpi.oop.game;
 
+import org.jetbrains.annotations.NotNull;
+import sk.tuke.kpi.gamelib.Disposable;
+import sk.tuke.kpi.gamelib.Scene;
+import sk.tuke.kpi.gamelib.actions.ActionSequence;
 import sk.tuke.kpi.gamelib.actions.Invoke;
+import sk.tuke.kpi.gamelib.actions.Wait;
 import sk.tuke.kpi.gamelib.framework.actions.Loop;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 
 public class DefectiveLight extends Light implements Repairable {
     private Animation lightAnimation;
+    private Disposable dispose1;
     private int z;
     public DefectiveLight(){
         this.lightAnimation = new Animation("sprites/light_off.png");
@@ -13,7 +19,8 @@ public class DefectiveLight extends Light implements Repairable {
         z=0;
     }
     public void cyklusBlik(){
-        new Loop<>(new Invoke<>(this::blik)).scheduleFor(this);
+
+        dispose1 = new Loop<>(new Invoke<>(this::blik)).scheduleFor(this);
     }
     public void blik(){
         int x = (int)(Math.random() * 20);
@@ -22,18 +29,27 @@ public class DefectiveLight extends Light implements Repairable {
         }
 
 
+
     }
     public boolean repair(){
-        if(z==0){
-            z=1;
-
+        dispose1.dispose();
+        this.turnOn();
         this.lightAnimation = new Animation("sprites/light_on.png");
         setAnimation(lightAnimation);
-        lightAnimation.setFrameDuration(10);
-        cyklusBlik();
-        z=0;
-        return true;
-        }
+        dispose1 = new ActionSequence<>(
+            new Wait<>(10),
+            new Loop<>(new Invoke<>(this::cyklusBlik))
+        ).scheduleFor(this);
         return false;
+
+    }
+
+
+
+    @Override
+    public void addedToScene(@NotNull Scene scene) {
+        super.addedToScene(scene);
+        new Invoke<>(this::cyklusBlik).scheduleFor(this);
+
     }
 }

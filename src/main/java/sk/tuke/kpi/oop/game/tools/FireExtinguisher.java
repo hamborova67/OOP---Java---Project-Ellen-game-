@@ -15,7 +15,7 @@ public class FireExtinguisher extends BreakableTool<Reactor>{
         super(1);
         Animation extinguisherAnimation = new Animation("sprites/extinguisher.png");
         setAnimation(extinguisherAnimation);
-        this.remainingUses =1;
+        this.remainingUses = remainingUses;
 
     }
     public int getRemainingUses(){
