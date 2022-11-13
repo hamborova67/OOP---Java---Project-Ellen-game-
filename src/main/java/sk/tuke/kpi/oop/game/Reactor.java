@@ -136,6 +136,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
     }
         @Override
         public void turnOn(){
+
             if(getDamage() >= 100) {
                 return;
             }
@@ -212,5 +213,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
         }
 
 
-
+    public EnergyConsumer getEnergyConsumer() {
+        return energyConsumer;
+    }
 }
