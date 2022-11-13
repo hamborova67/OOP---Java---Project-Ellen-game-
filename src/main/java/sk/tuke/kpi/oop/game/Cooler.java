@@ -32,7 +32,7 @@ public class Cooler extends AbstractActor implements Switchable{
         if(reactor==null){
             return;
         }
-        if(isOn() && reactor.getTemperature()>0){
+        if(isOn()){
             reactor.decreaseTemperature(1);
         }
     }

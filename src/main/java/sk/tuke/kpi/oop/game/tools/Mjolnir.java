@@ -26,6 +26,9 @@ public class Mjolnir extends Hammer{
         if(reactor==null){
             return;
         }
+        if(!reactor.repair()){
+            return;
+        }
         if(this.Uses<=0){
             getScene().removeActor(this);
             return;

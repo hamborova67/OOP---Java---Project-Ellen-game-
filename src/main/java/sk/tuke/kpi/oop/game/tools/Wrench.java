@@ -2,7 +2,7 @@ package sk.tuke.kpi.oop.game.tools;
 
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.DefectiveLight;
-import sk.tuke.kpi.oop.game.Reactor;
+
 
 public class Wrench extends BreakableTool<DefectiveLight>{
 
@@ -13,7 +13,7 @@ public class Wrench extends BreakableTool<DefectiveLight>{
     }
     public Wrench(int remainingUses){
 
-        //super(remainingUses); //vzdy ako prvy volat
+        super(remainingUses);
         Animation wrenchAnimation = new Animation("sprites/wrench.png");
         setAnimation(wrenchAnimation);
         this.remainingUses=2;

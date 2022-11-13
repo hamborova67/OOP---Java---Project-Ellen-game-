@@ -27,6 +27,9 @@ public class Hammer extends BreakableTool<Reactor>{
         if(reactor==null){
             return;
         }
+        if(!reactor.repair()){
+            return;
+        }
         reactor.repair();
         this.remainingUses--;
         if(this.remainingUses<=0){
