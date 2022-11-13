@@ -34,6 +34,9 @@ public class Wrench extends BreakableTool<DefectiveLight>{
             getScene().removeActor(this);
             return;
         }
+        if(!defectiveLight.repair()){
+            return;
+        }
         defectiveLight.repair();
         this.remainingUses--;
         if(this.remainingUses<=0){

@@ -116,7 +116,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
 
 }       @Override
         public boolean repair () {
-            if(getDamage()==0 && !running){
+            if(getDamage()==0){
                 return false;
             }
 
@@ -138,32 +138,29 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             }
             running=true;
             updateAnimation();
-            energyConsumer.setPowered(true);
+            if(energyConsumer!=null){
+                energyConsumer.setPowered(true);
+            }
+
         }
         @Override
         public void turnOff(){
             running=false;
             this.temperature=getTemperature();
             updateAnimation();
-            energyConsumer.setPowered(false);
-
-
-
+            if(energyConsumer!=null){
+                energyConsumer.setPowered(false);
+            }
         }
          @Override
         public boolean isOn(){
             return running;
         }
-
-
         public void addLight(Light light){
             this.addDevice(light);
-
         }
         public void removeLight(Light light){
             this.removeDevice(light);
-
-
         }
 
         public void addDevice(EnergyConsumer energyConsumer){
@@ -190,11 +187,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             new PerpetualReactorHeating(1).scheduleFor(this);
         }
 
-        public boolean extinguish(FireExtinguisher fireExtinguisher){
-            if(fireExtinguisher==null){
-                return false;
-            }
-
+        public boolean extinguish(){
 
             if(this.getDamage()>=100 && this.getTemperature()>4000){
                 this.temperature = 4000;

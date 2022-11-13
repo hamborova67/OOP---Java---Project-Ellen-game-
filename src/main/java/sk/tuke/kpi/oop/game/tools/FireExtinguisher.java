@@ -29,7 +29,8 @@ public class FireExtinguisher extends BreakableTool<Reactor>{
         if(reactor==null){
             return;
         }
-        reactor.extinguish(this);
+
+        reactor.extinguish();
         this.remainingUses--;
         if(this.remainingUses<=0){
             getScene().removeActor(this);

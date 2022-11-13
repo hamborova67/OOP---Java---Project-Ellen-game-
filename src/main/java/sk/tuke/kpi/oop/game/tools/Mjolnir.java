@@ -5,20 +5,20 @@ import sk.tuke.kpi.oop.game.Reactor;
 
 public class Mjolnir extends Hammer{
 
-    private int remainingUses;
+    private int Uses;
 
     public Mjolnir(){
         super( 4);
     }
-    public Mjolnir(int remainingUses){
-        super(remainingUses); //vzdy ako prvy volat
+    public Mjolnir(int Uses){
+        //super(Uses); //vzdy ako prvy volat
         Animation hammerAnimation = new Animation("sprites/hammer.png");
         setAnimation(hammerAnimation);
-        this.remainingUses=4;
+        this.Uses=4;
 
     }
     public int getRemainingUses(){
-        return this.remainingUses;
+        return this.Uses;
     }
 
 
@@ -26,11 +26,11 @@ public class Mjolnir extends Hammer{
         if(reactor==null){
             return;
         }
-        if(this.remainingUses<=0){
+        if(this.Uses<=0){
             getScene().removeActor(this);
             return;
         }
-        this.remainingUses--;
+        this.Uses--;
 
     }
 

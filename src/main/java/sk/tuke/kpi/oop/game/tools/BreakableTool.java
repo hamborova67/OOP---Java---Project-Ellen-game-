@@ -26,6 +26,9 @@ public  abstract class BreakableTool<A extends Actor> extends AbstractActor impl
             return;
         }
         this.remainingUses--;
+        if(this.remainingUses<=0){
+            getScene().removeActor(actor);
+        }
 
     }
 
