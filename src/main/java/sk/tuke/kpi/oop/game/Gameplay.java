@@ -10,8 +10,7 @@ public class Gameplay extends Scenario {
         Reactor reactor = new Reactor();
         scene.addActor(reactor, 148, 92);
         reactor.turnOn();
-        reactor.increaseTemperature(3470);
-        reactor.turnOff();
+
     }
 
 }
