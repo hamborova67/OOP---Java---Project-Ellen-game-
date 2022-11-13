@@ -39,30 +39,38 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
         return this.damage;
     }
     public void increaseTemperature(int increment){
-
+            int temp=0;
             if(!running){
                 return;
             }
             if(increment<=0){
                 return;
             }
-
-            this.temperature =  this.temperature + increment;
-            if(getTemperature()>=2000){
-
-                this.damage =   ((this.temperature-2000) / 40) ;
-
+            if(getDamage()>=100){
+                return;
             }
+
+
+
+            if(getDamage()<33){
+                temp= temperature + increment;
+            }
+
+
             if(getDamage()>=33 && getDamage()<=66 ){
 
-                   this.temperature = this.temperature + (int)Math.floor(increment*1.5);
+                temp= temperature + (int)Math.floor(increment*1.5);
 
                 }
             if(getDamage()>66){
-                    this.temperature = this.temperature + (2*increment);
+                temp= temperature + (2*increment);
 
             }
-
+            temperature=temp;
+            if(getTemperature()>=2000){
+                damage =   ((temperature-2000) / 40) ;
+            }
+            temperature=temp;
             if(getTemperature()>=6000){
                 this.damage = 100;
 
