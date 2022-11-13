@@ -15,6 +15,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
     private int damage;
     private boolean running;
     private Set<EnergyConsumer> devices;
+    private EnergyConsumer energyConsumer;
 
     private Animation normalAnimation;
 
@@ -137,12 +138,16 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             }
             running=true;
             updateAnimation();
+            energyConsumer.setPowered(true);
         }
         @Override
         public void turnOff(){
             running=false;
             this.temperature=getTemperature();
             updateAnimation();
+            energyConsumer.setPowered(false);
+
+
 
         }
          @Override
@@ -162,9 +167,14 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
         }
 
         public void addDevice(EnergyConsumer energyConsumer){
+        this.energyConsumer =energyConsumer;
         if( energyConsumer != null){
             this.devices.add(energyConsumer);
-            energyConsumer.setPowered(true);
+
+
+            energyConsumer.setPowered(running);
+
+
         }
 
 

@@ -39,6 +39,7 @@ public class Computer extends AbstractActor implements EnergyConsumer {
  //   public int increaseTemperature(){}
 
     public void setPowered(boolean flow){
+
         this.flow = flow;
     }
 }
