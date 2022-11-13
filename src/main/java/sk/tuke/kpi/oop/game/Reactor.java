@@ -28,7 +28,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
         this.comp = comp;
 
         devices = new HashSet<>();
-        this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
+        this.normalAnimation = new Animation("sprites/reactor.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
         setAnimation(normalAnimation);
         turnOff();
 
@@ -43,6 +43,9 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
             if(!running){
                 return;
             }
+        if(increment<=0){
+            return;
+        }
             this.temperature =  this.temperature + increment;
 
             if(getTemperature()>=2000){
@@ -68,11 +71,21 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
         updateAnimation();
         }
         public void  decreaseTemperature(int decrement) {
+            if(!isOn()){
+                return;
+            }
+            if(decrement<=0){
+                return;
+            }
+            if(getDamage()>=100){
+                return;
+            }
 
             if (getDamage() >= 50) {
                 this.temperature = this.temperature - (decrement / 2);
                 if (getDamage() >= 100) {
                     this.temperature = getTemperature();
+                    return;
                 }
 
             } else {
@@ -83,11 +96,11 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
         }
 
         public void updateAnimation(){
-                if(getTemperature()>=4000){
+                if(getTemperature()>=4000 ){
                     this.normalAnimation = new Animation("sprites/reactor_hot.png", 80, 80, 0.05f, Animation.PlayMode.LOOP_PINGPONG);
                     setAnimation(normalAnimation);
                 }
-                if(getTemperature()>=6000){
+                if(getTemperature()>=6000 && getDamage()>=100){
                     this.normalAnimation = new Animation("sprites/reactor_broken.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
                     setAnimation(normalAnimation);
                 }
@@ -99,18 +112,21 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
 
 }       @Override
         public boolean repair (){
+            if(getDamage() < 100){
+
 
             if(getDamage()>=50){
                 this.damage=this.damage-50;
-
             }else{
                 this.damage=0;
-
             }
-            // Math.max(0,30);Math.max(0,-30);
+        return true;
+            }else{
+                return false;
+            }
+        // Math.max(0,30);Math.max(0,-30);
 
-            return true;
-        }
+    }
         @Override
         public void turnOn(){
             running=true;

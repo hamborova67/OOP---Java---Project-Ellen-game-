@@ -33,15 +33,15 @@ public class Light extends AbstractActor implements Switchable, EnergyConsumer{
     }
     public void setPowered(boolean flow){
         this.flow=flow;
-        if(this.flow || this.pom){
+        if(this.flow && this.pom){
 
 
                 setAnimation(lightAnimation_on);
                 return;
 
         }
-
         setAnimation(lightAnimation);
+
     }
     @Override
     public void turnOn(){
