@@ -5,12 +5,8 @@ import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.actions.PerpetualReactorHeating;
-
-
 import java.util.HashSet;
 import java.util.Set;
-
-import static java.lang.Math.round;
 
 public class Reactor extends AbstractActor implements Switchable, Repairable{
     private int temperature;
@@ -43,6 +39,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
         return this.damage;
     }
     public void increaseTemperature(int increment){
+
             if(!running){
                 return;
             }
@@ -50,27 +47,24 @@ public class Reactor extends AbstractActor implements Switchable, Repairable{
                 return;
             }
 
-
-
+            this.temperature =  this.temperature + increment;
             if(getTemperature()>=2000){
-                this.temperature =  this.temperature + increment;
+
                 this.damage =   ((this.temperature-2000) / 40) ;
 
             }
             if(getDamage()>=33 && getDamage()<=66 ){
 
-                   this.temperature = (this.temperature + round((float)increment*(float)1.5));
-                   this.damage =   ((this.temperature-2000) /40) ;
+                   this.temperature = this.temperature + (int)Math.floor(increment*1.5);
+
                 }
             if(getDamage()>66){
                     this.temperature = this.temperature + (2*increment);
-                    this.damage =   ((this.temperature-2000) / 40) ;
+
             }
 
             if(getTemperature()>=6000){
                 this.damage = 100;
-                turnOff();
-
 
             }
             updateAnimation();

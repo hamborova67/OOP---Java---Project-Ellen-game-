@@ -1,7 +1,8 @@
 package sk.tuke.kpi.oop.game;
 
 
+public class Gameplay {
 
-public class Gameplay  {
 
 }
+
