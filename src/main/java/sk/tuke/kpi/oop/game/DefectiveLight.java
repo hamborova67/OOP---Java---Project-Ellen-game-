@@ -15,10 +15,7 @@ public class DefectiveLight extends Light implements Repairable {
     public DefectiveLight(){
 
     }
-    public void cyklusBlik(){
 
-        dispose1 = new Loop<>(new Invoke<>(this::blik)).scheduleFor(this);
-    }
     public void blik(){
         int x = (int)(Math.random() * 20);
         if(x==1){
@@ -38,7 +35,7 @@ public class DefectiveLight extends Light implements Repairable {
         this.turnOn();
         dispose1 = new ActionSequence<>(
             new Wait<>(10),
-            new Loop<>(new Invoke<>(this::cyklusBlik))
+            new Loop<>(new Invoke<>(this::blik))
         ).scheduleFor(this);
         return false;
 
@@ -49,7 +46,8 @@ public class DefectiveLight extends Light implements Repairable {
     @Override
     public void addedToScene(@NotNull Scene scene) {
         super.addedToScene(scene);
-        new Invoke<>(this::cyklusBlik).scheduleFor(this);
+        dispose1 = new Loop<>(new Invoke<>(this::blik)).scheduleFor(this);
+
 
     }
 }
