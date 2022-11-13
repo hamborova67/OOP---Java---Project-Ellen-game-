@@ -8,14 +8,14 @@ public class Hammer extends BreakableTool<Reactor>{
     private int remainingUses;
 
     public Hammer(){
-        this(2);
+        this(1);
     }
     public Hammer(int remainingUses){
 
         super(remainingUses); //vzdy ako prvy volat
         Animation hammerAnimation = new Animation("sprites/hammer.png");
         setAnimation(hammerAnimation);
-        this.remainingUses=1;
+        this.remainingUses=remainingUses;
 
 
     }
