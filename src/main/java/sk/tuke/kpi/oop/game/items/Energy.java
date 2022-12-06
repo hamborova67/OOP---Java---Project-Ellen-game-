@@ -29,4 +29,9 @@ public class Energy extends AbstractActor implements Usable<Ripley>{
 
 
     }
+
+    @Override
+    public Class<Ripley> getUsingActorClass() {
+        return null;
+    }
 }

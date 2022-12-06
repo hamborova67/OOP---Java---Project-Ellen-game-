@@ -46,5 +46,10 @@ public class Wrench extends BreakableTool<DefectiveLight> implements Collectible
 
     }
 
+    @Override
+    public Class<DefectiveLight> getUsingActorClass() {
+        return null;
+    }
+
 
 }
