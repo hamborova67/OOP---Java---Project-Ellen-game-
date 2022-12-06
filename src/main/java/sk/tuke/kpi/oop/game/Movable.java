@@ -7,5 +7,7 @@ public interface Movable extends Actor {
     default void startedMoving(Direction direction){}
     default void stoppedMoving() {}
 
+    default void collidedWithWall() {}
+
 
 }

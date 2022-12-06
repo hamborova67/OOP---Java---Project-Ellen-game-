@@ -6,33 +6,40 @@ import sk.tuke.kpi.oop.game.Movable;
 
 
 
-public class Move<X extends Movable> implements Action<Movable> {
+public class Move<A extends Movable> implements Action<A> {
 
-    private Movable actor;
+    private A actor;
     private float duration;
     private boolean action;
-    private int delta;
+    private float delta;
+    private boolean prvykrat;
+
+
     private Direction direction;
     public Move(Direction direction, float duration) {
         this.duration=duration;
         this.direction = direction;
         this.action=false;
+        this.delta = 0;
+        this.prvykrat=false;
+
 
     }
     public Move(Direction direction) {
         this.direction=direction;
         this.duration=0;
         this.action = false;
+        this.delta = 0;
+        this.prvykrat = false;
+
     }
 
-
-
     @Override
-    public void setActor(@Nullable Movable actor) {
+    public void setActor(@Nullable A actor) {
         this.actor = actor;
     }
 
-    public Movable getActor() {
+    public A getActor() {
         return actor;
     }
     public boolean isDone(){
@@ -44,14 +51,30 @@ public class Move<X extends Movable> implements Action<Movable> {
 
     @Override
     public void execute(float deltaTime) {
-        delta += deltaTime;
-        this.actor.startedMoving(direction);
-        int speed = actor.getSpeed();
-        if(delta>=duration){
-            action = true;
+        if(actor == null){
+            return;
         }
-        this.actor.setPosition(actor.getPosX() + speed* direction.getDx(), actor.getPosY() + speed*direction.getDy());
-        this.actor.stoppedMoving();
+        if(!prvykrat){
+            this.actor.startedMoving(direction);
+            prvykrat=true;
+        }
+
+        if(actor.getScene().getMap().intersectsWithWall(this.actor)){
+            this.actor.setPosition(this.actor.getPosX() - this.direction.getDx() , this.actor.getPosY() - this.direction.getDy() );
+
+        }else{
+            this.actor.setPosition(this.actor.getPosX() + this.direction.getDx() , this.actor.getPosY() + this.direction.getDy() );
+
+        }
+
+        if (this.direction.getDx() == 0 && this.direction.getDy() == 0) {
+            this.actor.getAnimation().stop();
+        }
+        delta += deltaTime;
+        if (duration<=delta) {
+            stop();
+
+        }
     }
 
     public void stop(){

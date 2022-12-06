@@ -1,20 +1,22 @@
 package sk.tuke.kpi.oop.game.items;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sk.tuke.kpi.gamelib.ActorContainer;
-
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Backpack implements ActorContainer<Collectible> {
     private String name;
-    private List<Collectible> items;
+    private List<Collectible> items = new ArrayList<>();
     private Backpack backpack;
     private int capacity;
+    private int count_items;
+    private Collectible one_item;
     public Backpack(String name, int capacity){
-
+            this.name = name;
+            this.capacity = capacity;
+            this.count_items = 0;
     }
 
     public int getCapacity() {
@@ -27,12 +29,12 @@ public class Backpack implements ActorContainer<Collectible> {
 
     @Override
     public @NotNull List<Collectible> getContent() {
-        return null;
+        return items;
     }
 
     @Override
     public int getSize() {
-        return 0;
+        return count_items;
     }
 
     @Override
@@ -63,12 +65,21 @@ public class Backpack implements ActorContainer<Collectible> {
 
     @Override
     public @Nullable Collectible peek() {
-        return items.get(items.size());
+        //System.out.println(items.get(items.size()-1));
+        return items.get(items.size()-1);
     }
 
     @Override
     public void shift() {
-
+        if(items.size()<=1){
+            return;
+        }
+        one_item=items.get(items.size()-1);
+        int from_zero =0;
+        items.add(0,one_item);
+        //System.out.println(items.size());
+        items.remove(items.size()-1);
+        //System.out.println(items.size());
 
     }
 }
