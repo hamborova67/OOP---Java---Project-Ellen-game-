@@ -33,47 +33,50 @@ public enum Direction {
         if(angle==0){
             return NORTH.direction;
         }
-        else if(angle==90){
+        if(angle==90){
             return WEST.direction;
         }
-        else if (angle==180) {
+        if (angle==180) {
             return SOUTH.direction;
         }
-        else if(angle==270){
+        if(angle==270){
             return EAST.direction;
         }
-        else if(angle==315){
+        if(angle==315){
             return NORTHEAST.direction;
         }
-        else if(angle==45){
+        if(angle==45){
             return NORTHWEST.direction;
         }
-        else if(angle==225){
+        if(angle==225){
             return SOUTHEAST.direction;
         }
-        else if(angle==135){
+        if(angle==135){
             return SOUTHWEST.direction;
         }
-        else{
-            return NONE.direction;
-        }
+        return NONE.direction;
+
 
     }
     public Direction combine(Direction other){
+
         int x,y;
         x=other.dx + this.getDx();
         y=other.dy + this.getDy();
 
+        if(this.getDy()==other.getDy()){
+            x=this.getDx();
+        }
+        if(this.getDy()==other.getDy()){
+            y=this.getDy();
+        }
+
+        direction=NONE;
         for(Direction c : Direction.values()){
             if(c.getDx()==x && c.getDy()==y){
                 direction=c;
-                return direction;
-            }
-            else{
-                direction=NONE;
             }
         }
-
         return direction;
     }
 }

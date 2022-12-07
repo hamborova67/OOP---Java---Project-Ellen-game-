@@ -8,6 +8,7 @@ import sk.tuke.kpi.oop.game.actions.Move;
 
 import java.util.Map;
 
+
 public class MovableController implements KeyboardListener {
     private Map<Input.Key, Direction> keyDirectionMap = Map.ofEntries(
         Map.entry(Input.Key.UP, Direction.NORTH),Map.entry(Input.Key.DOWN, Direction.SOUTH),
@@ -17,6 +18,8 @@ public class MovableController implements KeyboardListener {
     private Direction direction;
 
     private Movable movable;
+
+
 
     private Move<Movable> move;
     public MovableController(Movable movable){
@@ -32,13 +35,12 @@ public class MovableController implements KeyboardListener {
             move.stop();
         }
         if(keyDirectionMap.containsKey(key)){
-            //PressedKey.add(key);
 
-            Direction newDirection = this.keyDirectionMap.get(key);
+            Direction newDirection = keyDirectionMap.get(key);
 
+            newDirection = newDirection.combine(keyDirectionMap.get(key));
             this.move = new Move<>(newDirection, Float.MAX_VALUE);
-
-                this.move.scheduleFor(this.movable);
+            this.move.scheduleFor(this.movable);
 
         }
     }
