@@ -60,7 +60,7 @@ public class Move<A extends Movable> implements Action<A> {
         }
 
         if(actor.getScene().getMap().intersectsWithWall(this.actor)){
-            this.actor.setPosition(this.actor.getPosX() - this.direction.getDx() , this.actor.getPosY() - this.direction.getDy() );
+            //this.actor.setPosition(this.actor.getPosX() - this.direction.getDx() , this.actor.getPosY() - this.direction.getDy() );
 
         }else{
             this.actor.setPosition(this.actor.getPosX() + this.direction.getDx() , this.actor.getPosY() + this.direction.getDy() );
@@ -73,14 +73,16 @@ public class Move<A extends Movable> implements Action<A> {
         delta += deltaTime;
         if (duration<=delta) {
             stop();
-
         }
     }
 
     public void stop(){
         this.action=true;
-        this.actor.stoppedMoving();
+        if(actor!=null){
+            this.actor.stoppedMoving();
+        }
     }
+
 
 
 }
