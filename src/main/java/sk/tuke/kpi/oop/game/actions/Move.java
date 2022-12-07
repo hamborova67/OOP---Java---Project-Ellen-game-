@@ -63,7 +63,7 @@ public class Move<A extends Movable> implements Action<A> {
             //this.actor.setPosition(this.actor.getPosX() - this.direction.getDx() , this.actor.getPosY() - this.direction.getDy() );
 
         }else{
-            this.actor.setPosition(this.actor.getPosX() + this.direction.getDx() , this.actor.getPosY() + this.direction.getDy() );
+            this.actor.setPosition(this.actor.getPosX() + (this.actor.getSpeed()*this.direction.getDx() ), this.actor.getPosY() + (this.actor.getSpeed()*this.direction.getDy()) );
 
         }
 

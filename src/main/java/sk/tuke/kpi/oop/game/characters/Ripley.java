@@ -28,6 +28,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive {
         player.pause();
         setEnergy(50);
         setAmmo(400);
+        speed=1;
     }
 
     @Override
