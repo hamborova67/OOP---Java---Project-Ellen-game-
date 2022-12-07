@@ -11,15 +11,22 @@ public class Health {
         this.initHealth = initHealth;
     }
     public int getValue(){
-        return 0;
+        return initHealth;
     }
     public void refill(int amount){
-
+        initHealth=initHealth+amount;
+        if(initHealth>maxHealth){
+            initHealth=maxHealth;
+        }
     }
     public void restore(){
-
+        initHealth=maxHealth;
     }
     public void drain(int amount){
+        if(initHealth>0){
+            initHealth=initHealth-amount;
+        }
+
 
     }
     public void exhaust(){
