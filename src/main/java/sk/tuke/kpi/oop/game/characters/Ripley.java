@@ -79,6 +79,6 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive {
 
     @Override
     public Health getHealth() {
-        return null;
+        return health;
     }
 }
