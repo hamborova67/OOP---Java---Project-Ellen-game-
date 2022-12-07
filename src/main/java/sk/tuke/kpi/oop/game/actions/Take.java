@@ -17,19 +17,19 @@ public class Take<K extends Keeper> extends AbstractAction<K> {
             return;
         }
 
-        if(!isDone()){
-            for(Actor a : getActor().getScene().getActors()){
-                if(a instanceof Collectible){
-                    try {
-                        getActor().getBackpack().add((Collectible) a);
-                    }catch (IllegalStateException exception){
-                        getActor().getScene().getOverlay().drawText(exception.getMessage(), 0, 0).showFor(2);
-                    }
 
+        for(Actor a : getActor().getScene().getActors()){
+            if(a instanceof Collectible){
+                try {
+                    getActor().getBackpack().add((Collectible) a);
+                }catch (IllegalStateException exception){
+                    getActor().getScene().getOverlay().drawText(exception.getMessage(), 0, 0).showFor(2);
                 }
+
             }
-            setDone(true);
         }
+        setDone(true);
     }
+
 }
 

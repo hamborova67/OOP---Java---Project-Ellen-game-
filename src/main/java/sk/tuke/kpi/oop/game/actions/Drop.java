@@ -14,12 +14,12 @@ public class Drop<K extends Keeper> extends AbstractAction<K> {
             setDone(true);
             return;
         }
-        if(!isDone()){
-            collectible = getActor().getBackpack().peek();
-            getActor().getScene().addActor(collectible, getActor().getPosX(), getActor().getPosY());
-            getActor().getBackpack().remove(collectible);
-            setDone(true);
-        }
+
+        collectible = getActor().getBackpack().peek();
+        getActor().getScene().addActor(collectible, getActor().getPosX(), getActor().getPosY());
+        getActor().getBackpack().remove(collectible);
+        setDone(true);
+
 
     }
 }
