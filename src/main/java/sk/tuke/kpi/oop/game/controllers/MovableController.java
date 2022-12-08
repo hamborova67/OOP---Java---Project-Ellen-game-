@@ -1,12 +1,15 @@
 package sk.tuke.kpi.oop.game.controllers;
 import org.jetbrains.annotations.NotNull;
+import sk.tuke.kpi.gamelib.Disposable;
 import sk.tuke.kpi.gamelib.Input;
 import sk.tuke.kpi.gamelib.KeyboardListener;
 import sk.tuke.kpi.oop.game.Direction;
 import sk.tuke.kpi.oop.game.Movable;
 import sk.tuke.kpi.oop.game.actions.Move;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 
 public class MovableController implements KeyboardListener {
@@ -15,15 +18,15 @@ public class MovableController implements KeyboardListener {
         Map.entry(Input.Key.LEFT, Direction.WEST),Map.entry(Input.Key.RIGHT, Direction.EAST)
     );
 
-    private Direction direction;
-
     private Movable movable;
-
-
+    private Set<Input.Key> majkis;
+    private Input.Key key1 =null;
+    private Input.Key key2 =null;
 
     private Move<Movable> move;
     public MovableController(Movable movable){
-            this.movable = movable;
+        majkis= new HashSet<>();
+        this.movable = movable;
     }
 
 
@@ -33,21 +36,33 @@ public class MovableController implements KeyboardListener {
 
         if(move != null){
             move.stop();
+            move=null;
         }
         if(keyDirectionMap.containsKey(key)){
+            majkis.add(key);
+            if(key1==null)
+                key1 = key;
 
-            Direction newDirection = keyDirectionMap.get(key);
+            if(key2==null)
+                key2=key;
 
-            //newDirection = newDirection.combine(keyDirectionMap.get(key));
-            this.move = new Move<>(newDirection, Float.MAX_VALUE);
-            this.move.scheduleFor(this.movable);
+            Direction direction1 = null;
 
+            int i = 0;
+            for (Input.Key ki:majkis) {
+                if (i==0)
+                    direction1=keyDirectionMap.get(ki);
+                if (i==1)
+                    direction1 = direction1.combine(keyDirectionMap.get(ki));
+                i++;
+            }
+
+            if (direction1!=null) {
+                move = new Move<>(direction1, Float.MAX_VALUE);
+                move.scheduleFor(movable);
+            }
         }
     }
-
-
-
-
 
     @Override
     public void keyReleased(@NotNull Input.Key key) {
@@ -55,9 +70,6 @@ public class MovableController implements KeyboardListener {
 
         if(keyDirectionMap.containsKey(key)){
             move.stop();
-
         }
-
-
     }
 }

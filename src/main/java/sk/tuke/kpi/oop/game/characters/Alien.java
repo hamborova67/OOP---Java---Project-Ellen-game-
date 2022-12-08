@@ -1,4 +1,6 @@
 package sk.tuke.kpi.oop.game.characters;
+import org.jetbrains.annotations.NotNull;
+import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.Movable;
@@ -25,5 +27,11 @@ public class Alien extends AbstractActor implements Alive, Enemy, Movable {
     @Override
     public int getSpeed() {
         return speed;
+    }
+
+    @Override
+    public void addedToScene(@NotNull Scene scene) {
+        super.addedToScene(scene);
+
     }
 }

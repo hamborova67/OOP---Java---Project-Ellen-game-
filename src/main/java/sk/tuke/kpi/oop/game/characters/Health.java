@@ -48,9 +48,6 @@ public class Health {
         effectList.forEach(ExhaustionEffect::apply);
     }
     public void onExhaustion(ExhaustionEffect effect){
-        if(effect==null){
-            return;
-        }
         if(effectList==null){
             return;
         }

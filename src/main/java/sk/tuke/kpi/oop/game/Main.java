@@ -14,14 +14,14 @@ public class Main {
         WindowSetup windowSetup = new WindowSetup("Project Ellen", 800, 600);
 
         Game game = new GameApplication(windowSetup, new LwjglBackend());
-        Scene missionImpossible = new World("mission-impossible", "maps/mission-impossible.tmx", new MissionImpossible.Factory());
-        game.addScene(missionImpossible);
-        MissionImpossible MI = new MissionImpossible();
-        missionImpossible.addListener(MI);
-       // Scene scene = new World("world");
-       // game.addScene(scene);
-       // FirstSteps firstSteps = new FirstSteps();
-       // scene.addListener(firstSteps);
+        //Scene missionImpossible = new World("mission-impossible", "maps/mission-impossible.tmx", new MissionImpossible.Factory());
+        //game.addScene(missionImpossible);
+        //MissionImpossible MI = new MissionImpossible();
+        //missionImpossible.addListener(MI);
+        Scene scene = new World("world");
+        game.addScene(scene);
+        FirstSteps firstSteps = new FirstSteps();
+        scene.addListener(firstSteps);
 
 
 
