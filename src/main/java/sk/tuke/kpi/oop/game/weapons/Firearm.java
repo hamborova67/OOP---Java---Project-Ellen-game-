@@ -13,8 +13,9 @@ public abstract class Firearm {
         this.initAmmo = initAmmo;
     }
 
-    public Firearm() {
 
+    public void setAmmo(int initAmmo) {
+        this.initAmmo = initAmmo;
     }
 
     public int getAmmo(){
@@ -23,10 +24,10 @@ public abstract class Firearm {
     public void reload(int newAmmo){
         int ammoPom = initAmmo+newAmmo;
 
-        if(ammoPom>maxAmmo){
-            initAmmo=maxAmmo;
-        }else{
+        if(ammoPom<maxAmmo){
             initAmmo=ammoPom;
+        }else{
+            initAmmo=maxAmmo;
         }
 
     }
@@ -38,6 +39,6 @@ public abstract class Firearm {
         return createBullet();
     }
     protected Fireable createBullet(){
-        return fireable;
+        return new Bullet();
     }
 }

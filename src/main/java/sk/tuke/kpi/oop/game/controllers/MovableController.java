@@ -50,7 +50,7 @@ public class MovableController implements KeyboardListener {
 
 
     @Override
-    public void keyReleased(Input.@NotNull Key key) {
+    public void keyReleased(@NotNull Input.Key key) {
         KeyboardListener.super.keyReleased(key);
 
         if(keyDirectionMap.containsKey(key)){
