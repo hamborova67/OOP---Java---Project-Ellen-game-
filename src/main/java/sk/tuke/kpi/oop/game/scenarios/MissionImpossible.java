@@ -3,6 +3,7 @@ package sk.tuke.kpi.oop.game.scenarios;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sk.tuke.kpi.gamelib.*;
+import sk.tuke.kpi.oop.game.Direction;
 import sk.tuke.kpi.oop.game.characters.Ripley;
 import sk.tuke.kpi.oop.game.controllers.KeeperController;
 import sk.tuke.kpi.oop.game.controllers.MovableController;
@@ -29,6 +30,13 @@ public class MissionImpossible implements SceneListener {
         scene.getInput().registerListener(mc);
         //KeeperController kc = new KeeperController(ripley);
         //scene.getInput().registerListener(kc);
+
+        //float x=180;
+        //Direction directionx = new Direction(1,0);
+        //System.out.println("DIR "+directionx);
+
+
+
     }
 
     @Override

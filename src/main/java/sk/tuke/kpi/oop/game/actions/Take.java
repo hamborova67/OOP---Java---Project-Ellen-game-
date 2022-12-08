@@ -22,6 +22,8 @@ public class Take<K extends Keeper> extends AbstractAction<K> {
             if(a instanceof Collectible){
                 try {
                     getActor().getBackpack().add((Collectible) a);
+                    getActor().getScene().removeActor(a);
+                    break;
                 }catch (IllegalStateException exception){
                     getActor().getScene().getOverlay().drawText(exception.getMessage(), 0, 0).showFor(2);
                 }

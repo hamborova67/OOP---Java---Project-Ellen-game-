@@ -58,20 +58,22 @@ public class Move<A extends Movable> implements Action<A> {
             this.actor.startedMoving(direction);
             prvykrat=true;
         }
+        delta += deltaTime;
+        if (duration<=delta) {
+            actor.stoppedMoving();
+            action=true;
+        }
         this.actor.setPosition(this.actor.getPosX() + (this.actor.getSpeed()*this.direction.getDx() ), this.actor.getPosY() + (this.actor.getSpeed()*this.direction.getDy()) );
 
         if(actor.getScene().getMap().intersectsWithWall(this.actor)){
             this.actor.setPosition(this.actor.getPosX() - (this.actor.getSpeed()*this.direction.getDx() ), this.actor.getPosY() - (this.actor.getSpeed()*this.direction.getDy()) );
             actor.collidedWithWall();
-
         }
+
         if (this.direction.getDx() == 0 && this.direction.getDy() == 0) {
             this.actor.getAnimation().stop();
         }
-        delta += deltaTime;
-        if (duration<=delta) {
-            stop();
-        }
+
     }
 
     public void stop(){

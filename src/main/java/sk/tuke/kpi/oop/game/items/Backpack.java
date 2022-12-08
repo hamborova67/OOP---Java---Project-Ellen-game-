@@ -29,6 +29,8 @@ public class Backpack implements ActorContainer<Collectible> {
 
     @Override
     public @NotNull List<Collectible> getContent() {
+        List<Collectible> items1 = new ArrayList<>();
+        items1=items;
         return items;
     }
 
@@ -47,10 +49,13 @@ public class Backpack implements ActorContainer<Collectible> {
 
     @Override
     public void remove(@NotNull Collectible actor) {
-        if(items.size()==0){
+        if(items.size()>0){
+            items.remove(actor);
+
+        }else {
             throw new IllegalStateException();
         }
-        items.remove(actor);
+
     }
 
     @NotNull
@@ -62,7 +67,7 @@ public class Backpack implements ActorContainer<Collectible> {
     @Override
     public @Nullable Collectible peek() {
         if(items.size()<1){
-            return items.get(items.size()-1);
+            return null;
         }
         //System.out.println(items.get(items.size()-1));
         return items.get(items.size()-1);

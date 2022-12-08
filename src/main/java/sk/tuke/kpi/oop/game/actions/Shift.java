@@ -9,14 +9,11 @@ public class Shift<K extends Keeper> extends AbstractAction<K> {
     }
     @Override
     public void execute(float deltaTime) {
-        if(getActor()==null){
+        if(getActor()==null || getActor().getBackpack().peek()==null){
             setDone(true);
             return;
         }
-        if(getActor().getBackpack().getSize()<2){
-            setDone(true);
-            return;
-        }
+
         getActor().getBackpack().shift();
         setDone(true);
     }

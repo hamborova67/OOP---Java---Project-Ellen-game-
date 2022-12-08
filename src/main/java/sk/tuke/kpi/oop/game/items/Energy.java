@@ -14,6 +14,9 @@ public class Energy extends AbstractActor implements Usable<Alive>{
         if(actor.getHealth().getValue()>=100){
             return;
         }
+        if(actor==null){
+            return;
+        }
         if(actor.getPosX() == this.getPosX() || actor.getPosY() == this.getPosY()){
             actor.getHealth().restore();
             getScene().removeActor(this);
