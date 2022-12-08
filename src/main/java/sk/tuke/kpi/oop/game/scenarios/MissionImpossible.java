@@ -31,9 +31,9 @@ public class MissionImpossible implements SceneListener {
         //KeeperController kc = new KeeperController(ripley);
         //scene.getInput().registerListener(kc);
 
-        //float x=180;
-        //Direction directionx = new Direction(1,0);
-        //System.out.println("DIR "+directionx);
+       // float x=180;
+        //Direction directionx = directionx.getAngle(x);
+       // System.out.println("DIR "+directionx);
 
 
 

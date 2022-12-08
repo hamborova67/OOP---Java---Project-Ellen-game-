@@ -59,10 +59,7 @@ public class Move<A extends Movable> implements Action<A> {
             prvykrat=true;
         }
         delta += deltaTime;
-        if (duration<=delta) {
-            actor.stoppedMoving();
-            action=true;
-        }
+
         this.actor.setPosition(this.actor.getPosX() + (this.actor.getSpeed()*this.direction.getDx() ), this.actor.getPosY() + (this.actor.getSpeed()*this.direction.getDy()) );
 
         if(actor.getScene().getMap().intersectsWithWall(this.actor)){
@@ -70,8 +67,9 @@ public class Move<A extends Movable> implements Action<A> {
             actor.collidedWithWall();
         }
 
-        if (this.direction.getDx() == 0 && this.direction.getDy() == 0) {
-            this.actor.getAnimation().stop();
+        if ((this.direction.getDx() == 0 && this.direction.getDy() == 0) || duration<=delta) {
+            actor.stoppedMoving();
+            action=true;
         }
 
     }

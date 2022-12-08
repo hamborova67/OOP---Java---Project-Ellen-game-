@@ -5,7 +5,7 @@ public enum Direction {
     NORTHEAST(1,1), NORTHWEST(-1,1), SOUTHEAST(1,-1), SOUTHWEST(0,-1);
     private int dx,dy;
     private Direction direction;
-
+    private float angle;
     Direction(int dx, int dy) {
         this.dx=dx;
         this.dy=dy;
@@ -31,30 +31,30 @@ public enum Direction {
     }
     public static Direction fromAngle(float angle){
         if(angle==0.0){
-            return NORTH.direction;
+            return NORTH;
         }
         if(angle==90.0){
-            return WEST.direction;
+            return WEST;
         }
         if (angle==180.0) {
-            return SOUTH.direction;
+            return SOUTH;
         }
         if(angle==270.0){
-            return EAST.direction;
+            return EAST;
         }
         if(angle==315.0){
-            return NORTHEAST.direction;
+            return NORTHEAST;
         }
         if(angle==45.0){
-            return NORTHWEST.direction;
+            return NORTHWEST;
         }
         if(angle==225.0){
-            return SOUTHEAST.direction;
+            return SOUTHEAST;
         }
         if(angle==135.0){
-            return SOUTHWEST.direction;
+            return SOUTHWEST;
         }
-        return NONE.direction;
+        return NONE;
 
 
     }
@@ -62,17 +62,15 @@ public enum Direction {
 
         int x,y;
 
-
-
-        if(this.getDy()==other.getDy()){
+        if(getDy()==other.getDy()){
             x=this.getDx();
         }else{
-            x=other.dx + this.getDx();
+            x=other.dx + getDx();
         }
-        if(this.getDy()==other.getDy()){
+        if(getDy()==other.getDy()){
             y=this.getDy();
         }else{
-            y=other.dy + this.getDy();
+            y=other.dy + getDy();
         }
 
         direction=NONE;
