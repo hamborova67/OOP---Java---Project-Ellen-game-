@@ -7,5 +7,8 @@ public class Gun extends Firearm{
 
     }
 
-
+    @Override
+    protected Fireable createBullet() {
+        return new Bullet();
+    }
 }

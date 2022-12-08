@@ -27,10 +27,15 @@ public class Health {
         initHealth=maxHealth;
     }
     public void drain(int amount){
-        if(initHealth>0){
-            initHealth=initHealth-amount;
+        if(initHealth!=0){
+            if(initHealth>amount){
+                initHealth=initHealth-amount;
+            }else {
+                exhaust();
+            }
+
         }
-        exhaust();
+
     }
     public void exhaust(){
         this.initHealth=0;

@@ -13,10 +13,10 @@ public class Energy extends AbstractActor implements Usable<Alive>{
     }
     @Override
     public void useWith(Alive actor) {
-        if(actor.getHealth().getValue()>=100){
+        if(actor==null){
             return;
         }
-        if(actor==null || this==null){
+        if(actor.getHealth().getValue()>=100){
             return;
         }
         if(actor.getPosX() == this.getPosX() || actor.getPosY() == this.getPosY()){
@@ -24,6 +24,7 @@ public class Energy extends AbstractActor implements Usable<Alive>{
             (Objects.requireNonNull(getScene())).removeActor(this);
             //System.out.println("ahoj"+actor.getEnergy());
         }
+
     }
     @Override
     public Class<Alive> getUsingActorClass() {

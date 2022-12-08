@@ -16,6 +16,9 @@ public class Drop<K extends Keeper> extends AbstractAction<K> {
         }
 
         Collectible collectible = getActor().getBackpack().peek();
+        if(collectible==null){
+            return;
+        }
         getActor().getScene().addActor(collectible, getActor().getPosX(), getActor().getPosY());
         getActor().getBackpack().remove(collectible);
         setDone(true);

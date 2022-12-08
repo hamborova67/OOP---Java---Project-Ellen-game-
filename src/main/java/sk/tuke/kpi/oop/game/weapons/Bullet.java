@@ -19,4 +19,6 @@ public class Bullet extends AbstractActor implements Fireable {
         return speed;
     }
 
+
+
 }
