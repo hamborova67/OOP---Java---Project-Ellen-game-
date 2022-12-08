@@ -59,6 +59,9 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
 
     public void setHealth(Health health) {
         this.health = health;
+        if(health.getValue()<=0){
+            restInPeace();
+        }
     }
 
     public int getEnergy() {
@@ -73,11 +76,6 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         this.ammo = ammo;
     }
 
-    @Override
-    public void addedToScene(@NotNull Scene scene) {
-        this.addedToScene(scene);
-
-    }
 
     @Override
     public Backpack getBackpack() {
@@ -112,6 +110,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
             getScene().getMessageBus().publish(RIPLEY_DIED,this);
         }
     }
+
 
 
     private List<Collectible> getContent(){

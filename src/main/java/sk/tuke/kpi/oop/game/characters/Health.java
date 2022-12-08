@@ -34,7 +34,10 @@ public class Health {
                 exhaust();
             }
 
+        }else {
+            exhaust();
         }
+
 
     }
     public void exhaust(){
@@ -46,6 +49,9 @@ public class Health {
     }
     public void onExhaustion(ExhaustionEffect effect){
         if(effect==null){
+            return;
+        }
+        if(effectList==null){
             return;
         }
         effectList.add(effect);

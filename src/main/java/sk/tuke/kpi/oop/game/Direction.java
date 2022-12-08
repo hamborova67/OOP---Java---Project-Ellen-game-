@@ -61,16 +61,27 @@ public enum Direction {
     public Direction combine(Direction other){
 
         int x,y;
+        x=other.dx + this.getDx();
+        y=other.dy + this.getDy();
 
-        if(getDy()==other.getDy()){
+        if(this.getDy()==other.getDy()){
             x=this.getDx();
-        }else{
-            x=other.dx + getDx();
         }
-        if(getDy()==other.getDy()){
+        if(this.getDy()==other.getDy()){
             y=this.getDy();
-        }else{
-            y=other.dy + getDy();
+        }
+
+        if(x==2){
+            x=1;
+        }
+        if(x==-2){
+            x=-1;
+        }
+        if(y==2){
+            y=1;
+        }
+        if(y==-2){
+            y=-1;
         }
 
         Direction direction=NONE;

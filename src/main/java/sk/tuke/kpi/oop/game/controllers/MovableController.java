@@ -28,7 +28,7 @@ public class MovableController implements KeyboardListener {
 
 
     @Override
-    public void keyPressed(Input.@NotNull Key key) {
+    public void keyPressed(@NotNull Input.Key key) {
         KeyboardListener.super.keyPressed(key);
 
         if(move != null){
@@ -38,7 +38,7 @@ public class MovableController implements KeyboardListener {
 
             Direction newDirection = keyDirectionMap.get(key);
 
-            newDirection = newDirection.combine(keyDirectionMap.get(key));
+            //newDirection = newDirection.combine(keyDirectionMap.get(key));
             this.move = new Move<>(newDirection, Float.MAX_VALUE);
             this.move.scheduleFor(this.movable);
 

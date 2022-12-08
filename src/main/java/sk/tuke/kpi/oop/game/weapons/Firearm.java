@@ -21,9 +21,12 @@ public abstract class Firearm {
         return initAmmo;
     }
     public void reload(int newAmmo){
-        initAmmo=initAmmo+newAmmo;
-        if(initAmmo>maxAmmo){
+        int ammoPom = initAmmo+newAmmo;
+
+        if(ammoPom>maxAmmo){
             initAmmo=maxAmmo;
+        }else{
+            initAmmo=ammoPom;
         }
 
     }

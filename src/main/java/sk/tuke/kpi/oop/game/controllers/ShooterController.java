@@ -13,7 +13,7 @@ public class ShooterController implements KeyboardListener {
     }
 
     @Override
-    public void keyPressed(Input.@NotNull Key key) {
+    public void keyPressed(@NotNull Input.Key key) {
         KeyboardListener.super.keyPressed(key);
         if (shooter == null ){
             return;

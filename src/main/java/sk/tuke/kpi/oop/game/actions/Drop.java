@@ -10,7 +10,11 @@ public class Drop<K extends Keeper> extends AbstractAction<K> {
     }
     @Override
     public void execute(float deltaTime) {
-        if(getActor().getBackpack().peek() ==null || getActor().getScene()==null || getActor() ==null){
+        if(getActor()==null){
+            setDone(true);
+            return;
+        }
+        if(getActor().getBackpack().peek() ==null || getActor().getScene()==null ){
             setDone(true);
             return;
         }

@@ -13,7 +13,7 @@ public class KeeperController implements KeyboardListener {
             this.keeper = keeper;
     }
     @Override
-    public void keyReleased(Input.@NotNull Key key) {
+    public void keyReleased(@NotNull Input.Key key) {
         KeyboardListener.super.keyReleased(key);
 
         if(key == Input.Key.ENTER){ //take

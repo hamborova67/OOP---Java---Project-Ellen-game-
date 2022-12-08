@@ -36,6 +36,7 @@ public class Fire<A extends Armed> extends AbstractAction<A> {
         scene.addActor(fireable,getActor().getPosX()+x,getActor().getPosY()+y);
         fireable.startedMoving(smergulky);
         new Move<Fireable>(smergulky,Float.MAX_VALUE).scheduleFor(fireable);
+        setDone(true);
 
 
 
