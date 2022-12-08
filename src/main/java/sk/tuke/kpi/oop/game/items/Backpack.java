@@ -2,8 +2,6 @@ package sk.tuke.kpi.oop.game.items;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sk.tuke.kpi.gamelib.ActorContainer;
-
-import java.text.CollationElementIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -51,7 +49,7 @@ public class Backpack implements ActorContainer<Collectible> {
 
     @Override
     public void remove(@NotNull Collectible actor) {
-        if(items.size()>0 || items!=null){
+        if(items!=null){
             items.remove(actor);
 
         }else {
@@ -68,11 +66,11 @@ public class Backpack implements ActorContainer<Collectible> {
 
     @Override
     public @Nullable Collectible peek() {
-        if(items.size()<1){
-            return null;
+        if(items.size()>0){
+            return items.get(items.size()-1);
         }
         //System.out.println(items.get(items.size()-1));
-        return items.get(items.size()-1);
+        return null;
     }
 
     @Override

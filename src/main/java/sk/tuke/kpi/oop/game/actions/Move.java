@@ -67,7 +67,7 @@ public class Move<A extends Movable> implements Action<A> {
             actor.collidedWithWall();
         }
 
-        if ((this.direction.getDx() == 0 && this.direction.getDy() == 0) || duration<=delta) {
+        if (((this.direction.getDx() == 0 && this.direction.getDy() == 0) || duration<=delta) && !action ) {
             actor.stoppedMoving();
             action=true;
         }
