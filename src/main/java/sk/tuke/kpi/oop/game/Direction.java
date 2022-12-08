@@ -1,11 +1,19 @@
 package sk.tuke.kpi.oop.game;
 
 public enum Direction {
-    NORTH(0,1), EAST(1,0), SOUTH(0, -1),  WEST(-1,0), NONE(0,0),
-    NORTHEAST(1,1), NORTHWEST(-1,1), SOUTHEAST(1,-1), SOUTHWEST(0,-1);
+                                          NORTH(0,1),
+                NORTHWEST(-1,1),                          NORTHEAST(1,1),
+             WEST(-1,0),                                                 EAST(1,0),
+                SOUTHWEST(-1,-1),                          SOUTHEAST(1,-1),
+                                          SOUTH(0, -1),
+
+
+    NONE(0,0);
     private int dx,dy;
 
+
     private float angle;
+    private
     Direction(int dx, int dy) {
         this.dx=dx;
         this.dy=dy;
@@ -59,15 +67,18 @@ public enum Direction {
 
     }
     public Direction combine(Direction other){
-        int x,y;
-        x=other.dx + this.getDx();
-        y=other.dy + this.getDy();
+        int x=0,y=0;
 
-        if(this.getDy()==other.getDy()){
-            x=this.getDx();
+        if(getDx()==other.getDx()){
+            x=getDx();
+        }else{
+            x= getDx() + other.getDx() ;
         }
-        if(this.getDy()==other.getDy()){
-            y=this.getDy();
+
+        if(getDy()==other.getDy()){
+            y=getDy();
+        }else {
+            y=getDy() + other.getDy();
         }
 
         if(x==2 || x==-2 ){
@@ -77,12 +88,15 @@ public enum Direction {
             y=y/2;
         }
 
-        Direction direction=NONE;
-        for(Direction c : Direction.values()){
-            if(c.getDx()==x && c.getDy()==y){
+        Direction direction=null;
+
+        for (Direction c : Direction.values()) {
+            if (c.getDx() == x && c.getDy() == y)
+            {
                 direction=c;
             }
         }
+
         return direction;
     }
 }

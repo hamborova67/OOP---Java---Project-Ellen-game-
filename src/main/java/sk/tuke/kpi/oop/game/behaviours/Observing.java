@@ -8,7 +8,7 @@ public class Observing<T, A extends Actor> implements Behaviour<A> {
     private Topic<T> topic;
     private Predicate<T> predicate;
     private Behaviour<A> delegate;
-    private Actor actor;
+    private A actor;
     public Observing(Topic<T> topic, Predicate<T> predicate, Behaviour<A> delegate){
         this.predicate=predicate;
         this.topic=topic;
@@ -34,6 +34,6 @@ public class Observing<T, A extends Actor> implements Behaviour<A> {
             return;
         }
 
-        delegate.setUp((A) actor);
+        delegate.setUp(actor);
     }
 }
