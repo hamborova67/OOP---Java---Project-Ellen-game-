@@ -6,6 +6,10 @@ public class Gun extends Firearm{
         super(initAmmo,maxAmmo);
 
     }
+    public Gun(int initAmmo){
+        super(initAmmo);
+
+    }
 
     @Override
     protected Fireable createBullet() {

@@ -108,6 +108,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
                 return;
             }
             getScene().getMessageBus().publish(RIPLEY_DIED,this);
+
         }
     }
 
