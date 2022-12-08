@@ -4,7 +4,7 @@ public enum Direction {
     NORTH(0,1), EAST(1,0), SOUTH(0, -1),  WEST(-1,0), NONE(0,0),
     NORTHEAST(1,1), NORTHWEST(-1,1), SOUTHEAST(1,-1), SOUTHWEST(0,-1);
     private int dx,dy;
-    private Direction direction;
+
     private float angle;
     Direction(int dx, int dy) {
         this.dx=dx;
@@ -73,7 +73,7 @@ public enum Direction {
             y=other.dy + getDy();
         }
 
-        direction=NONE;
+        Direction direction=NONE;
         for(Direction c : Direction.values()){
             if(c.getDx()==x && c.getDy()==y){
                 direction=c;

@@ -2,6 +2,8 @@ package sk.tuke.kpi.oop.game.items;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sk.tuke.kpi.gamelib.ActorContainer;
+
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,7 +14,7 @@ public class Backpack implements ActorContainer<Collectible> {
 
     private int capacity;
 
-    private Collectible one_item;
+
     public Backpack(String name, int capacity){
             this.name = name;
             this.capacity = capacity;
@@ -78,7 +80,7 @@ public class Backpack implements ActorContainer<Collectible> {
         if(items.size()<=1){
             return;
         }
-        one_item=items.get(items.size()-1);
+        Collectible one_item=items.get(items.size()-1);
 
         items.add(0,one_item);
         //System.out.println(items.size());
