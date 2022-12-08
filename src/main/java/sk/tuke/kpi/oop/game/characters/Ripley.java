@@ -26,7 +26,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive {
         player = new Animation("sprites/player.png", 32, 32, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
         setAnimation(player);
         player.pause();
-        setEnergy(50);
+        health = new Health(100,100);
         setAmmo(400);
         speed=1;
     }
@@ -45,8 +45,8 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive {
         this.player.pause();
     }
 
-    public void setEnergy(int energy) {
-        this.energy = energy;
+    public void setHealth(Health health) {
+        this.health = health;
     }
 
     public int getEnergy() {

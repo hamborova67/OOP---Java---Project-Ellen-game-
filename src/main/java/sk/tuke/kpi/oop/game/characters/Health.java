@@ -1,6 +1,9 @@
 package sk.tuke.kpi.oop.game.characters;
 
+import java.util.List;
+
 public class Health {
+    private List<ExhaustionEffect> effectList ;
     private int initHealth;
     private int maxHealth;
     public Health(int initHealth, int maxHealth){
@@ -9,6 +12,7 @@ public class Health {
     }
     public Health(int initHealth){
         this.initHealth = initHealth;
+        this.maxHealth= initHealth;
     }
     public int getValue(){
         return initHealth;
@@ -26,14 +30,20 @@ public class Health {
         if(initHealth>0){
             initHealth=initHealth-amount;
         }
-
-
+        exhaust();
     }
     public void exhaust(){
-
+        this.initHealth=0;
+        if(effectList == null){
+            return;
+        }
+        effectList.forEach(ExhaustionEffect::apply);
     }
     public void onExhaustion(ExhaustionEffect effect){
-
+        if(effect==null){
+            return;
+        }
+        effectList.add(effect);
     }
     @FunctionalInterface
     public interface ExhaustionEffect {
