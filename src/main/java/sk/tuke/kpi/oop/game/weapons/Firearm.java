@@ -18,13 +18,21 @@ public abstract class Firearm {
     }
 
     public int getAmmo(){
-        return 0;
+        return initAmmo;
     }
-    public void reload(int amount){
+    public void reload(int newAmmo){
+        initAmmo=initAmmo+newAmmo;
+        if(initAmmo>maxAmmo){
+            initAmmo=maxAmmo;
+        }
 
     }
     public Fireable fire(){
-        return fireable;
+        if(initAmmo<=0){
+            return null;
+        }
+        initAmmo--;
+        return createBullet();
     }
     protected Fireable createBullet(){
         return fireable;

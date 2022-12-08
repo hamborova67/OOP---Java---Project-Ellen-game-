@@ -19,14 +19,4 @@ public class Bullet extends AbstractActor implements Fireable {
         return speed;
     }
 
-
-    @Override
-    public int getAmmo() {
-        return ammo;
-    }
-
-    @Override
-    public void reload(int newAmmo) {
-
-    }
 }
