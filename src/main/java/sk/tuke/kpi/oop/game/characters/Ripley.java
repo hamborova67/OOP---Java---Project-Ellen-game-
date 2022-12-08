@@ -113,21 +113,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         }
     }
 
-    public void decreaseHealth(){
-        if(health.getValue()>0){
-            new Loop<>(
-                new ActionSequence<>(
-                    new Invoke<>(() -> { if (health.getValue() <= 0) {
-                            restInPeace();
-                        }
-                    else {this.getHealth().drain(1);}
-                    }),
-                    new Wait<>(2)
-                )
-            ).scheduleFor(this);
 
-        }
-    }
     private List<Collectible> getContent(){
         return getBackpack().getContent();
     }
