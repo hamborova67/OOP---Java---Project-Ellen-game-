@@ -1,12 +1,6 @@
 package sk.tuke.kpi.oop.game.characters;
-import org.jetbrains.annotations.NotNull;
 import sk.tuke.kpi.gamelib.GameApplication;
-import sk.tuke.kpi.gamelib.Scene;
-import sk.tuke.kpi.gamelib.actions.ActionSequence;
-import sk.tuke.kpi.gamelib.actions.Invoke;
-import sk.tuke.kpi.gamelib.actions.Wait;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
-import sk.tuke.kpi.gamelib.framework.actions.Loop;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.gamelib.messages.Topic;
 import sk.tuke.kpi.oop.game.Direction;
@@ -41,6 +35,10 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         setAmmo(400);
         speed=1;
         weapon = new Gun(100,100);
+        if(getScene()!=null){
+            health.onExhaustion(() -> restInPeace());
+        }
+
     }
 
     @Override
@@ -82,6 +80,9 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         return ruksak;
     }
     public void showRipleyState(){
+        if(getScene()==null){
+            return;
+        }
         int windowHeight = getScene().getGame().getWindowSetup().getHeight();
         int yTextPos = windowHeight - GameApplication.STATUS_LINE_OFFSET;
         getScene().getGame().getOverlay().drawText("| Energy: "+this.getEnergy()+" | Ammo: "+this.getAmmo(), 100 , yTextPos);
@@ -101,7 +102,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         this.weapon =weapon;
     }
     public void restInPeace(){
-        this.stoppedMoving();
+
         if(health.getValue()<=0){
             this.setAnimation(player_died);
             if(getScene()==null){
@@ -111,7 +112,6 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
 
         }
     }
-
 
 
     private List<Collectible> getContent(){
