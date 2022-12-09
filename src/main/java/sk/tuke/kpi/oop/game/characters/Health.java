@@ -27,26 +27,28 @@ public class Health {
         initHealth=maxHealth;
     }
     public void drain(int amount){
-        if(initHealth!=0){
-            if(initHealth>amount){
-                initHealth=initHealth-amount;
-            }else {
-                exhaust();
-            }
-        }else {
-            exhaust();
-        }
+        if(initHealth!=0) {
 
+                if (initHealth > amount)
+                    initHealth -= amount;
+                else
+                    exhaust();
+            }
 
     }
     public void exhaust(){
-        this.initHealth=0;
-        if(effectList == null){
-            return;
+        if(initHealth!=0){
+            this.initHealth=0;
         }
-        for(ExhaustionEffect e : effectList){
-            e.apply();
+
+
+       // for(ExhaustionEffect e : effectList){
+         //   e.apply();
+        //}
+        if (effectList != null) {
+            effectList.forEach(ExhaustionEffect::apply);
         }
+
         //effectList.forEach(ExhaustionEffect::apply);
 
     }

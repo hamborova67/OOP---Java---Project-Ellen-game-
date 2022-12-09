@@ -43,7 +43,6 @@ public abstract class Firearm {
         initAmmo--;
         return createBullet();
     }
-    protected Fireable createBullet(){
-        return new Bullet();
-    }
+    protected abstract Fireable createBullet();
+
 }

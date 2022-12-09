@@ -14,10 +14,13 @@ import sk.tuke.kpi.oop.game.Keeper;
 import sk.tuke.kpi.oop.game.Movable;
 import sk.tuke.kpi.oop.game.items.Backpack;
 import sk.tuke.kpi.oop.game.items.Collectible;
+import sk.tuke.kpi.oop.game.scenarios.FirstSteps;
 import sk.tuke.kpi.oop.game.weapons.Firearm;
 import sk.tuke.kpi.oop.game.weapons.Gun;
 
+import java.net.http.WebSocket;
 import java.util.List;
+
 
 public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Armed {
     private Animation player;
@@ -41,11 +44,13 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         setAmmo(400);
         speed=1;
         weapon = new Gun(0);
-        if(getScene()!=null){
+        health.onExhaustion(() -> {
             this.setAnimation(new Animation("sprites/player_die.png",32,32,0.1f, Animation.PlayMode.ONCE));
+            //getScene().getMessageBus().subscribe(RIPLEY_DIED, Ripley::drain) ;
             getScene().getMessageBus().publish(RIPLEY_DIED,this);
+            getScene().cancelActions(this);
+        });
 
-        }
         getContent();
 
     }
@@ -122,10 +127,9 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
 
     public void drain() {
         restInPeace();
-        new Loop<>( new ActionSequence<>(
-                    new Invoke<>(this::restInPeace),
+        new Loop<>( new ActionSequence<>(new Invoke<>(()-> health.drain(20)),
                     new Wait<>(1),
-                    new Invoke<>(()-> health.drain(20))
+                    new Invoke<>(this::restInPeace)
                 )).scheduleFor(this);
 
     }
@@ -139,5 +143,6 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
     public void addedToScene(@NotNull Scene scene) {
         super.addedToScene(scene);
         drain();
+        restInPeace();
     }
 }
