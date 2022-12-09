@@ -23,13 +23,11 @@ import java.util.List;
 public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Armed {
     private Animation player;
     private Animation player_died;
-    private int energy;
 
     private int ammo;
     private Backpack ruksak= new Backpack("Ripley's backpack",10);
 
     public static final Topic<Ripley> RIPLEY_DIED = Topic.create("ripley died", Ripley.class);
-    public static final Topic<Ripley> RIPLEY_TOPIC = Topic.create("ripley died", Ripley.class);
     private Health health;
     private int speed;
     private Firearm weapon;
@@ -72,9 +70,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         }
     }
 
-    public int getEnergy() {
-        return energy;
-    }
+
 
     public int getAmmo() {
         return ammo;
@@ -112,16 +108,14 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         this.weapon =weapon;
     }
     public void restInPeace(){
-        if(getScene()==null){
-            return;
-        }
+        if(getScene()!=null){
         if(health.getValue()<=0){
             getScene().getMessageBus().publish(RIPLEY_DIED, this);
-            getScene().getMessageBus().publish(RIPLEY_TOPIC, this);
             this.setAnimation(player_died);
             //System.out.println("xx");
 
             getScene().cancelActions(this);
+        }
         }
     }
 
