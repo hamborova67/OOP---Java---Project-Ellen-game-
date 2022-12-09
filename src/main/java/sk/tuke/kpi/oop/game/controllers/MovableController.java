@@ -33,63 +33,53 @@ public class MovableController implements KeyboardListener {
 
     @Override
     public void keyPressed(@NotNull Input.Key key) {
-        KeyboardListener.super.keyPressed(key);
-
-        if(keyDirectionMap.containsKey(key)){
-            if(move != null){
-            move.stop();
-            disposable.dispose();
-            move=null;
-        }
+        if (keyDirectionMap.containsKey(key)) {
             majkis.add(key);
+
             if(key1==null)
+            {
                 key1 = key;
-
-            if(key2==null)
+            }
+            else if(key2==null)
+            {
                 key2=key;
+            }
+            updateMove();
+        }
 
-            direction1 = null;
-            for (Input.Key ki:majkis) {
-                    direction1=keyDirectionMap.get(ki);
-            }
-            if (direction1!=null) {
-                move = new Move<>(direction1, Float.MAX_VALUE);
-                disposable=move.scheduleFor(movable);
-            }
+    }
+
+    private void updateMove() {
+        Direction direction = null;
+        int i = 0;
+        for (Input.Key kluc:majkis) {
+            if (i==0)
+                direction=keyDirectionMap.get(kluc);
+            if (i==1)
+                direction= direction.combine(keyDirectionMap.get(kluc));
+            i++;
+        }
+        if (move!=null) {
+            move.stop();
+        }
+
+        if (direction!=null) {
+            move = new Move<>(direction, Float.MAX_VALUE);
+            move.scheduleFor(movable);
         }
     }
+
 
     @Override
     public void keyReleased(@NotNull Input.Key key) {
-        KeyboardListener.super.keyReleased(key);
-        majkis.remove(key);
-        if (key1 == key)
-            key1 = null;
-
-        if (key2 == key)
-            key2 = null;
-
-        if (keyDirectionMap.containsKey(key)) {
-            if (move != null) {
+        if(keyDirectionMap.containsKey(key))
+        { majkis.remove(key);
+                key1 =null;
+                key2 =null;
                 move.stop();
-                disposable.dispose();
-                move = null;
-            }
-            direction1 = null;
-
-            int i = 0;
-            for (Input.Key ki : majkis) {
-                if (i == 0)
-                    direction1 = keyDirectionMap.get(ki);
-                if (i == 1)
-                    direction1 = direction1.combine(keyDirectionMap.get(ki));
-                i++;
-            }
-
-            if (direction1 != null) {
-                move = new Move<>(direction1, Float.MAX_VALUE);
-                disposable = move.scheduleFor(movable);
-            }
         }
     }
+
 }
+
+
