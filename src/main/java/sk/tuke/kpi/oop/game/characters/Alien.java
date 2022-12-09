@@ -6,16 +6,32 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.Movable;
 import sk.tuke.kpi.oop.game.behaviours.Behaviour;
 
+import java.util.List;
+
 public class Alien extends AbstractActor implements Alive, Enemy, Movable {
     private int speed;
     private Health health;
+    private Behaviour<? super Alien> behaviour;
     public Alien(){
         Animation alien = new Animation("sprites/alien.png",32,32,0.1f);
+        setAnimation(alien);
+        speed=4;
+        health =  new Health(100,100);
+        if(getScene()!=null){
+            health.onExhaustion(() -> getScene().removeActor(this));
+        }
+
 
     }
     public Alien(int healthValue, Behaviour<? super Alien> behaviour){
-        speed=1;
+        Animation alien = new Animation("sprites/alien.png",32,32,0.1f);
+        setAnimation(alien);
+        speed=4;
+        this.behaviour=behaviour;
         health = new Health(healthValue,100);
+        if(getScene()!=null){
+            health.onExhaustion(() -> getScene().removeActor(this));
+        }
     }
 
 
@@ -32,6 +48,11 @@ public class Alien extends AbstractActor implements Alive, Enemy, Movable {
     @Override
     public void addedToScene(@NotNull Scene scene) {
         super.addedToScene(scene);
-
+        if (behaviour == null) {
+            return;
+        }
+        behaviour.setUp(this);
     }
+
+
 }
