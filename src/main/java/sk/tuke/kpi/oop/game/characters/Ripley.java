@@ -106,15 +106,15 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         this.weapon =weapon;
     }
     public void restInPeace(){
-        if(getScene()!=null){
-        if(health.getValue()<=0){
+
+        if(health.getValue()<=0 && getScene()!=null){
             getScene().getMessageBus().publish(RIPLEY_DIED, this);
             this.setAnimation(player_died);
             //System.out.println("xx");
 
             getScene().cancelActions(this);
         }
-        }
+
     }
 
     public void drain() {
