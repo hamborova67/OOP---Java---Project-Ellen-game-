@@ -1,6 +1,5 @@
 package sk.tuke.kpi.oop.game.characters;
 import org.jetbrains.annotations.NotNull;
-import sk.tuke.kpi.gamelib.Actor;
 import sk.tuke.kpi.gamelib.GameApplication;
 import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.gamelib.actions.ActionSequence;
@@ -43,12 +42,9 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         speed=1;
         weapon = new Gun(0);
         if(getScene()!=null){
-            health.onExhaustion(() -> {
-                this.setAnimation(new Animation("sprites/player_die.png",32,32,0.1f, Animation.PlayMode.ONCE));
-                getScene().getMessageBus().publish(RIPLEY_DIED,this);
-            });
-
+            health.onExhaustion(this::restInPeace);
         }
+        getContent();
 
     }
 
@@ -127,8 +123,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
     public void drain() {
 
         new Loop<>( new ActionSequence<>(
-                    new Invoke<>(()->{ restInPeace();
-                    }),
+                    new Invoke<>(this::restInPeace),
                     new Wait<>(1),
                     new Invoke<>(()-> health.drain(20))
                 )).scheduleFor(this);
