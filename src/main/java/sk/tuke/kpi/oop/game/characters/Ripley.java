@@ -17,7 +17,6 @@ import sk.tuke.kpi.oop.game.items.Collectible;
 import sk.tuke.kpi.oop.game.weapons.Firearm;
 import sk.tuke.kpi.oop.game.weapons.Gun;
 
-import java.net.http.WebSocket;
 import java.util.List;
 
 
@@ -128,7 +127,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
 
     public void drain() {
         restInPeace();
-        new Loop<>( new ActionSequence<>(new Invoke<>(()-> health.drain(20)),
+        new Loop<>( new ActionSequence<>(new Invoke<>(()-> health.drain(2)),
                     new Wait<>(1),
                     new Invoke<>(this::restInPeace)
                 )).scheduleFor(this);

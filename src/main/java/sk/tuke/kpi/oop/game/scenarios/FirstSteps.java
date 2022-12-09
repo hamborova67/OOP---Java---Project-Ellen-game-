@@ -39,6 +39,8 @@ public class FirstSteps implements SceneListener {
         Ammo ammo = new Ammo();
         scene.addActor(ammo, 100,0);
 
+        Door door = new Door();
+        scene.addActor(door,40,12);
         zdravie = ripley.getHealth().getValue();
         sceneUpdating(scene);
 
@@ -75,7 +77,7 @@ public class FirstSteps implements SceneListener {
         SceneListener.super.sceneUpdating(scene);
         //int windowHeight = scene.getGame().getWindowSetup().getHeight();
         //int yTextPos = windowHeight - GameApplication.STATUS_LINE_OFFSET;
-       // scene.getGame().getOverlay().drawText("| Energy: "+ripley.getEnergy()+" | Ammo: "+ripley.getAmmo(), 100 , yTextPos);
+        // scene.getGame().getOverlay().drawText("| Energy: "+ripley.getEnergy()+" | Ammo: "+ripley.getAmmo(), 100 , yTextPos);
         scene.getGame().pushActorContainer(ripley.getBackpack());
         ripley.showRipleyState();
         //scene.follow(ripley);
@@ -83,4 +85,5 @@ public class FirstSteps implements SceneListener {
     }
 
 }
+
 
