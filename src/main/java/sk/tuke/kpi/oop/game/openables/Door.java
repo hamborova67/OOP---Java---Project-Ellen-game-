@@ -33,9 +33,11 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
             this.doorc = new Animation("sprites/hdoor.png",32,16,0.1f, Animation.PlayMode.ONCE);
             this.dooro = new Animation("sprites/hdoor.png",32,16,0.1f, Animation.PlayMode.ONCE_REVERSED);
 
+        }if(doorc!=null){
+            setAnimation(doorc);
+            doorc.stop();
         }
-        setAnimation(doorc);
-        doorc.stop();
+
     }
 
     public Door() {
@@ -53,6 +55,10 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
     @Override
     public void open() {
         door= true;
+        if(getScene()==null){
+            return;
+        }
+
         getScene().getMessageBus().publish(DOOR_OPENED, this);
         getScene().getMap().getTile(getPosX() / 16, getPosY() / 16).setType(MapTile.Type.CLEAR);
         if(Orientation.VERTICAL==orientation){
@@ -62,28 +68,30 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
             getScene().getMap().getTile(getPosX() / 16+1, getPosY() / 16).setType(MapTile.Type.CLEAR);
         }
         setAnimation(dooro);
-        getAnimation().play();
-        getAnimation().stop();
+        myDoorSwitch();
 
     }
 
     @Override
     public void close() {
         door = false;
-        getScene().getMessageBus().publish(DOOR_CLOSED, this);
-        getScene().getMap().getTile(getPosX() / 16, getPosY() / 16).setType(MapTile.Type.WALL);
+        if(getScene()==null){
+            return;
+        }
         if(Orientation.VERTICAL==orientation){
             getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 + 1).setType(MapTile.Type.WALL);
         }
+        getScene().getMessageBus().publish(DOOR_CLOSED, this);
+        getScene().getMap().getTile(getPosX() / 16, getPosY() / 16).setType(MapTile.Type.WALL);
         if(Orientation.HORIZONTAL==orientation){
             getScene().getMap().getTile(getPosX() / 16+1, getPosY() / 16).setType(MapTile.Type.WALL);
         }
         setAnimation(doorc);
-        //getAnimation().setPlayMode(Animation.PlayMode.ONCE);
+        myDoorSwitch();
+    }
+    public void myDoorSwitch(){
         getAnimation().play();
         getAnimation().stop();
-
-
     }
 
 
