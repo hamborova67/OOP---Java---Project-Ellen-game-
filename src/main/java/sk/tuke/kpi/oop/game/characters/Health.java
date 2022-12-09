@@ -45,12 +45,10 @@ public class Health {
 
 
 
-       // for(ExhaustionEffect e : effectList){
-         //   e.apply();
-        //}
-        if (mojeffectList != null) {
-            mojeffectList.forEach(ExhaustionEffect::apply);
-         }
+        for(ExhaustionEffect e : mojeffectList){
+            e.apply();
+        }
+
         }
 
         //effectList.forEach(ExhaustionEffect::apply);
