@@ -1,6 +1,5 @@
 package sk.tuke.kpi.oop.game.controllers;
 import org.jetbrains.annotations.NotNull;
-import sk.tuke.kpi.gamelib.Disposable;
 import sk.tuke.kpi.gamelib.Input;
 import sk.tuke.kpi.gamelib.KeyboardListener;
 import sk.tuke.kpi.oop.game.Direction;
@@ -67,6 +66,12 @@ public class MovableController implements KeyboardListener {
     @Override
     public void keyReleased(@NotNull Input.Key key) {
         KeyboardListener.super.keyReleased(key);
+        majkis.remove(key);
+        if(key1==key)
+            key1 =null;
+
+        if(key2==key)
+            key2=null;
 
         if(keyDirectionMap.containsKey(key)){
             move.stop();
