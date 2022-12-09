@@ -1,6 +1,13 @@
 package sk.tuke.kpi.oop.game.characters;
+import org.jetbrains.annotations.NotNull;
+import sk.tuke.kpi.gamelib.Actor;
 import sk.tuke.kpi.gamelib.GameApplication;
+import sk.tuke.kpi.gamelib.Scene;
+import sk.tuke.kpi.gamelib.actions.ActionSequence;
+import sk.tuke.kpi.gamelib.actions.Invoke;
+import sk.tuke.kpi.gamelib.actions.Wait;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
+import sk.tuke.kpi.gamelib.framework.actions.Loop;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.gamelib.messages.Topic;
 import sk.tuke.kpi.oop.game.Direction;
@@ -117,8 +124,26 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         }
     }
 
+    public void drain() {
+
+        new Loop<>( new ActionSequence<>(
+                    new Invoke<>(()->{ restInPeace();
+                    }),
+                    new Wait<>(1),
+                    new Invoke<>(()-> health.drain(20))
+                )).scheduleFor(this);
+
+
+    }
+
 
     private List<Collectible> getContent(){
         return getBackpack().getContent();
+    }
+
+    @Override
+    public void addedToScene(@NotNull Scene scene) {
+        super.addedToScene(scene);
+        drain();
     }
 }
