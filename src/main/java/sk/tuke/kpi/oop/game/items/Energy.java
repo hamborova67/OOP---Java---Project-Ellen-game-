@@ -3,8 +3,6 @@ import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.characters.Alive;
 
-import java.util.Objects;
-
 public class Energy extends AbstractActor implements Usable<Alive>{
 
     public Energy(){
@@ -16,14 +14,17 @@ public class Energy extends AbstractActor implements Usable<Alive>{
         if(actor==null){
             return;
         }
+        if(getScene()==null){
+            return;
+        }
         if(actor.getHealth().getValue()>=100){
             return;
         }
-        if(actor.getPosX() == this.getPosX() || actor.getPosY() == this.getPosY()){
-            actor.getHealth().restore();
-            (Objects.requireNonNull(getScene())).removeActor(this);
+
+        actor.getHealth().restore();
+        getScene().removeActor(this);
             //System.out.println("ahoj"+actor.getEnergy());
-        }
+
 
     }
     @Override
