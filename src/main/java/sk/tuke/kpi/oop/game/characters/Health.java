@@ -42,7 +42,7 @@ public class Health {
     public void exhaust(){
         if(initHealth!=0){
             this.initHealth=0;
-        }
+
 
 
        // for(ExhaustionEffect e : effectList){
@@ -50,6 +50,7 @@ public class Health {
         //}
         if (mojeffectList != null) {
             mojeffectList.forEach(ExhaustionEffect::apply);
+         }
         }
 
         //effectList.forEach(ExhaustionEffect::apply);

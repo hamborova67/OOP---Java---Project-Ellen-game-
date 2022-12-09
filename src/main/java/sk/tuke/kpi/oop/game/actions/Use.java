@@ -11,6 +11,7 @@ public class Use<A extends Actor> extends AbstractAction<A> {
     public Use(Usable<A> usable){
        this.usableActor=usable;
     }
+
     public Disposable scheduleForIntersectingWith(Actor mediatingActor) {
         Scene scene = mediatingActor.getScene();
         if (scene == null) return null;

@@ -1,9 +1,12 @@
 package sk.tuke.kpi.oop.game.openables;
+import org.jetbrains.annotations.NotNull;
 import sk.tuke.kpi.gamelib.Actor;
+import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.gamelib.map.MapTile;
 import sk.tuke.kpi.gamelib.messages.Topic;
+import sk.tuke.kpi.oop.game.characters.Ripley;
 import sk.tuke.kpi.oop.game.items.Usable;
 
 public class Door extends AbstractActor implements Openable, Usable<Actor> {
@@ -18,7 +21,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
 
     public Door(String name, Orientation orientation){
         super(name);
-        this.door=true;
+        this.door=false;
         this.orientation=orientation;
         if(Orientation.VERTICAL==orientation){
             this.doorc = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE_REVERSED);
@@ -29,31 +32,38 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
         setAnimation(doorc);
         doorc.pause();
 
+
     }
+
+
     @Override
     public void open() {
         if(getScene()!=null){
             return; }
         getScene().getMessageBus().publish(DOOR_OPENED,this);
-        this.door=false;
+        this.door=true;
         this.doorc.setPlayMode(Animation.PlayMode.ONCE);
+        setAnimation(doorc);
+        doorc.play();
         getScene().getMap().getTile(getPosX() / 16 + 1, getPosY() / 16 ).setType(MapTile.Type.CLEAR);
         getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 ).setType(MapTile.Type.CLEAR);
-        doorc.play();
-        doorc.pause();
+
+
 
     }
 
     @Override
     public void close() {
         if(getScene()!=null){return;}
-        getScene().getMessageBus().publish(DOOR_CLOSED,this);
-        this.door=true;
+
+        this.door=false;
         this.doorc.setPlayMode(Animation.PlayMode.ONCE_REVERSED);
+        setAnimation(doorc);
         getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 + 1).setType(MapTile.Type.WALL);
         getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 ).setType(MapTile.Type.WALL);
         doorc.play();
-        doorc.pause();
+        System.out.println("closed");
+        getScene().getMessageBus().publish(DOOR_CLOSED,this);
     }
 
     @Override

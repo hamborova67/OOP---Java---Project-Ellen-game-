@@ -1,6 +1,7 @@
 package sk.tuke.kpi.oop.game.scenarios;
 
 import org.jetbrains.annotations.NotNull;
+import sk.tuke.kpi.gamelib.Actor;
 import sk.tuke.kpi.gamelib.GameApplication;
 import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.gamelib.SceneListener;
@@ -37,7 +38,6 @@ public class FirstSteps implements SceneListener {
         scene.addActor(hammer,10,10);
         Ammo ammo = new Ammo();
         scene.addActor(ammo, 100,0);
-
 
         zdravie = ripley.getHealth().getValue();
         sceneUpdating(scene);
