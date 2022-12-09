@@ -50,15 +50,16 @@ public class MovableController implements KeyboardListener {
     private void updateMove() {
         Direction direction = null;
         int i = 0;
-        for (Input.Key kluc:majkis) {
+        for (Input.Key ki:majkis) {
             if (i==0)
-                direction=keyDirectionMap.get(kluc);
+                direction=keyDirectionMap.get(ki);
             if (i==1)
-                direction= direction.combine(keyDirectionMap.get(kluc));
+                direction= direction.combine(keyDirectionMap.get(ki));
             i++;
         }
         if (move!=null) {
             move.stop();
+            move=null;
         }
 
         if (direction!=null) {
@@ -70,11 +71,19 @@ public class MovableController implements KeyboardListener {
 
     @Override
     public void keyReleased(@NotNull Input.Key key) {
-        if(keyDirectionMap.containsKey(key))
-        { majkis.remove(key);
-                key1 =null;
-                key2 =null;
-                move.stop();
+        if (keyDirectionMap.containsKey(key)) {
+            majkis.remove(key);
+
+            if (key == key1) {
+                key1 = null;
+            }
+
+            if (key == key2) {
+                key2 = null;
+            }
+
+            updateMove();
+
         }
     }
 
