@@ -30,25 +30,30 @@ public class KeeperController implements KeyboardListener {
             new Shift<>().scheduleFor(keeper);
         }
         if(key == Input.Key.U){ //use
-            if(keeper.getScene()==null){
-                return;
-            }
-            for(Actor actor1 : keeper.getScene().getActors()){
-                if(actor1 instanceof Usable<?> && keeper.intersects(actor1)){
-                    Use<?> myUse =  new Use<>((Usable<?>)actor1);
-                    myUse.scheduleForIntersectingWith(keeper);
-                }
-            }
+            usefor();
 
         }
         if(key == Input.Key.B){
-            Collectible peek = keeper.getBackpack().peek();
-            if(peek==null){
-                return;
+            peekabo();
+        }
+
+
+    }
+    private void usefor(){
+        if(keeper.getScene()==null){
+            return;
+        }
+        for(Actor actor1 : keeper.getScene().getActors()){
+            if(actor1 instanceof Usable && keeper.intersects(actor1)){
+                new Use<>((Usable<?>) actor1).scheduleForIntersectingWith(keeper);
+
             }
-            if(peek instanceof Usable){
-                new Use<>((Usable<?>)peek).scheduleForIntersectingWith(keeper);
-            }
+        }
+    }
+    private void peekabo(){
+        Collectible peek = keeper.getBackpack().peek();
+        if(peek instanceof Usable){
+            new Use<>((Usable<?>)peek).scheduleForIntersectingWith(keeper);
         }
     }
 }

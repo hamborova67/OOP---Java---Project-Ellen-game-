@@ -11,6 +11,7 @@ import sk.tuke.kpi.oop.game.characters.Alive;
 import sk.tuke.kpi.oop.game.characters.Ripley;
 import sk.tuke.kpi.oop.game.controllers.MovableController;
 import sk.tuke.kpi.oop.game.items.*;
+import sk.tuke.kpi.oop.game.openables.Door;
 
 public class FirstSteps implements SceneListener {
 
@@ -31,10 +32,12 @@ public class FirstSteps implements SceneListener {
         scene.getInput().registerListener(kc);
         //new Move(Direction.SOUTH, 1).scheduleFor(ripley);
         Energy energy = new Energy();
-        scene.addActor(energy,10,10);
-
+        scene.addActor(energy,0,0);
+        Hammer hammer = new Hammer();
+        scene.addActor(hammer,10,10);
         Ammo ammo = new Ammo();
         scene.addActor(ammo, 100,0);
+
 
         zdravie = ripley.getHealth().getValue();
         sceneUpdating(scene);
@@ -50,10 +53,10 @@ public class FirstSteps implements SceneListener {
         ).scheduleFor(ripley);*/
 
 
-        Hammer hammer = new Hammer(3);
+        Hammer hammer1 = new Hammer(3);
         Wrench wrench =new Wrench();
         FireExtinguisher fireExtinguisher = new FireExtinguisher();
-        ripley.getBackpack().add(hammer);
+        ripley.getBackpack().add(hammer1);
         ripley.getBackpack().add(wrench);
         ripley.getBackpack().add(fireExtinguisher);
         ripley.getBackpack().shift();

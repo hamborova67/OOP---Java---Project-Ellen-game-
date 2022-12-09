@@ -13,17 +13,18 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
     public static final Topic<Door> DOOR_CLOSED = Topic.create("door closed", Door.class);
 
     private boolean door;
-
-    enum Orientation { VERTICAL, HORIZONTAL }
+    private Orientation orientation;
+    private enum Orientation { VERTICAL, HORIZONTAL }
 
     public Door(String name, Orientation orientation){
         super(name);
-        this.door=false;
+        this.door=true;
+        this.orientation=orientation;
         if(Orientation.VERTICAL==orientation){
             this.doorc = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE_REVERSED);
         }
         if(Orientation.HORIZONTAL==orientation){
-            this.doorc = new Animation("sprites/hdoor.png",16,32,0.1f, Animation.PlayMode.ONCE_REVERSED);
+            this.doorc = new Animation("sprites/hdoor.png",32,16,0.1f, Animation.PlayMode.ONCE_REVERSED);
         }
         setAnimation(doorc);
         doorc.pause();
@@ -34,9 +35,9 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
         if(getScene()!=null){
             return; }
         getScene().getMessageBus().publish(DOOR_OPENED,this);
-        this.door=true;
+        this.door=false;
         this.doorc.setPlayMode(Animation.PlayMode.ONCE);
-        getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 + 1).setType(MapTile.Type.CLEAR);
+        getScene().getMap().getTile(getPosX() / 16 + 1, getPosY() / 16 ).setType(MapTile.Type.CLEAR);
         getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 ).setType(MapTile.Type.CLEAR);
         doorc.play();
         doorc.pause();
@@ -47,7 +48,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
     public void close() {
         if(getScene()!=null){return;}
         getScene().getMessageBus().publish(DOOR_CLOSED,this);
-        this.door=false;
+        this.door=true;
         this.doorc.setPlayMode(Animation.PlayMode.ONCE_REVERSED);
         getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 + 1).setType(MapTile.Type.WALL);
         getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 ).setType(MapTile.Type.WALL);
