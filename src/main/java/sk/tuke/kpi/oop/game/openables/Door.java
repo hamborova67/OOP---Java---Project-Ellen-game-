@@ -10,7 +10,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
     private Animation doorc;
     private Animation dooro;
 
-    public static final Topic<Door> DOOR_OPENED  = Topic.create("door opened", Door.class);;
+    public static final Topic<Door> DOOR_OPENED  = Topic.create("door opened", Door.class);
     public static final Topic<Door> DOOR_CLOSED = Topic.create("door closed", Door.class);
     private String name;
     private Orientation orientation;
@@ -43,7 +43,10 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
     }
     @Override
     public void open() {
-        getScene().getMessageBus().publish(DOOR_OPENED,this);
+        if(getScene()!=null){
+            getScene().getMessageBus().publish(DOOR_OPENED,this);
+        }
+
         door=true;
         this.dooro.setPlayMode(Animation.PlayMode.ONCE);
         getScene().getMap().getTile(getPosX(),getPosY()).setType(MapTile.Type.CLEAR);
@@ -54,7 +57,8 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
 
     @Override
     public void close() {
-        getScene().getMessageBus().publish(DOOR_CLOSED,this);
+        if(getScene()!=null){
+        getScene().getMessageBus().publish(DOOR_CLOSED,this);}
         door=false;
         this.doorc.setPlayMode(Animation.PlayMode.ONCE_REVERSED);
         getScene().getMap().getTile(getPosX(),getPosY()).setType(MapTile.Type.WALL);
@@ -69,7 +73,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
 
     @Override
     public void useWith(Actor actor) {
-        if(door==false){
+        if(!door){
             open();
         }else {
             close();
