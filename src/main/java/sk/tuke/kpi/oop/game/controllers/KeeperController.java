@@ -46,15 +46,9 @@ public class KeeperController implements KeyboardListener {
             if(peek==null){
                 return;
             }
-
             if(peek instanceof Usable){
                 new Use<>((Usable<?>)peek).scheduleForIntersectingWith(keeper);
             }
-
-
-
         }
-
-
     }
 }

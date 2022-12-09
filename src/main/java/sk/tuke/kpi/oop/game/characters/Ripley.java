@@ -36,7 +36,11 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         speed=1;
         weapon = new Gun(0);
         if(getScene()!=null){
-            health.onExhaustion(() -> restInPeace());
+            health.onExhaustion(() -> {
+                this.setAnimation(new Animation("sprites/player_die.png",32,32,0.1f, Animation.PlayMode.ONCE));
+                getScene().getMessageBus().publish(RIPLEY_DIED,this);
+            });
+
         }
 
     }

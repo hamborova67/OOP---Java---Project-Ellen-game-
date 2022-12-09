@@ -25,8 +25,6 @@ public class Alien extends AbstractActor implements Alive, Enemy, Movable {
         if(getScene()!=null){
             health.onExhaustion(() -> getScene().removeActor(this));
         }
-
-
     }
     public Alien(int healthValue, Behaviour<? super Alien> behaviour){
         Animation alien = new Animation("sprites/alien.png",32,32,0.1f);
@@ -53,35 +51,39 @@ public class Alien extends AbstractActor implements Alive, Enemy, Movable {
     @Override
     public void addedToScene(@NotNull Scene scene) {
         super.addedToScene(scene);
-        if (behaviour == null) {
-            return;
+        if (behaviour != null) {
+            behaviour.setUp(this);
         }
-        behaviour.setUp(this);
-        drain();
+
+        new Loop<>(
+            new ActionSequence<>(
+                new Invoke<>(this::drain),
+                new Wait<>(0.3f)
+            )).scheduleFor(this);
 
     }
 
-    public void drain(){
-        if(getScene()==null){
+    public void drain() {
+        if (getScene() == null) {
             return;
         }
-        List<Actor> list;
-        list = getScene().getActors();
+        List<Actor> aliveActorsList;
+        aliveActorsList = getScene().getActors();
 
-        for (Actor alive : list) {
-            if (alive instanceof Alive && this.intersects(alive) && !(alive instanceof Enemy)) {
-                ((Alive) alive).getHealth().drain(3);
-                new Loop<>(
+        for (Actor aliveActor : aliveActorsList) {
+            if (aliveActor instanceof Alive && !(aliveActor instanceof Enemy) && this.intersects(aliveActor)) {
+                ((Alive) aliveActor).getHealth().drain(3);
                 new ActionSequence<>(
                     new Invoke<>(this::drain),
-                    new Wait<>(2)
-                )).scheduleFor(this);
+                    new Wait<>(1)
 
+                ).scheduleFor(this);
             }
+
         }
     }
-
 }
+
 
 
 

@@ -25,6 +25,10 @@ public class FirstSteps implements SceneListener {
         scene.addActor(ripley,0,0);
         MovableController mc = new MovableController(ripley);
         scene.getInput().registerListener(mc);
+        MovableController sc = new MovableController(ripley);
+        scene.getInput().registerListener(sc);
+        MovableController kc = new MovableController(ripley);
+        scene.getInput().registerListener(kc);
         //new Move(Direction.SOUTH, 1).scheduleFor(ripley);
         Energy energy = new Energy();
         scene.addActor(energy,10,10);
