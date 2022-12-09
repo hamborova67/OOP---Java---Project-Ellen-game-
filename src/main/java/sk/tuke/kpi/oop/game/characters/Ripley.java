@@ -41,9 +41,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         setAmmo(400);
         speed=1;
         weapon = new Gun(0);
-        health.onExhaustion(() -> {
-            restInPeace();
-        });
+        health.onExhaustion(this::restInPeace);
 
         getContent();
 
@@ -96,7 +94,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
 
     @Override
     public Health getHealth() {
-        return this.health;
+        return health;
     }
 
     @Override
