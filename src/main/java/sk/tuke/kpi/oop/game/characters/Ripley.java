@@ -127,7 +127,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
 
     public void drain() {
         restInPeace();
-        new Loop<>( new ActionSequence<>(new Invoke<>(()-> health.drain(2)),
+        new Loop<>( new ActionSequence<>(new Invoke<>(()-> health.drain(20)),
                     new Wait<>(1),
                     new Invoke<>(this::restInPeace)
                 )).scheduleFor(this);

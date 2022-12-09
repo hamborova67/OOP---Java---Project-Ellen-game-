@@ -40,9 +40,11 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
 
     public Door() {
         this.doorc = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE);
+        this.dooro = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE_REVERSED);
         setAnimation(doorc);
         doorc.stop();
         door = false;
+        orientation=Orientation.VERTICAL;
 
     }
 
@@ -62,6 +64,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
         setAnimation(dooro);
         getAnimation().play();
         getAnimation().stop();
+
     }
 
     @Override
@@ -79,6 +82,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
         //getAnimation().setPlayMode(Animation.PlayMode.ONCE);
         getAnimation().play();
         getAnimation().stop();
+
 
     }
 
