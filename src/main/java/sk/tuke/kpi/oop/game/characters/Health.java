@@ -3,7 +3,7 @@ package sk.tuke.kpi.oop.game.characters;
 import java.util.List;
 
 public class Health {
-    private List<ExhaustionEffect> effectList ;
+    private List<ExhaustionEffect> mojeffectList ;
     private int initHealth;
     private int maxHealth;
     public Health(int initHealth, int maxHealth){
@@ -45,16 +45,16 @@ public class Health {
        // for(ExhaustionEffect e : effectList){
          //   e.apply();
         //}
-        if (effectList != null) {
-            effectList.forEach(ExhaustionEffect::apply);
+        if (mojeffectList != null) {
+            mojeffectList.forEach(ExhaustionEffect::apply);
         }
 
         //effectList.forEach(ExhaustionEffect::apply);
 
     }
     public void onExhaustion(ExhaustionEffect effect){
-        if(effectList!=null){
-            effectList.add(effect);
+        if(mojeffectList!=null){
+            mojeffectList.add(effect);
         }
 
     }

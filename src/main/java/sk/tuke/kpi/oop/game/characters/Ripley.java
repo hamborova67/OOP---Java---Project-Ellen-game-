@@ -14,7 +14,6 @@ import sk.tuke.kpi.oop.game.Keeper;
 import sk.tuke.kpi.oop.game.Movable;
 import sk.tuke.kpi.oop.game.items.Backpack;
 import sk.tuke.kpi.oop.game.items.Collectible;
-import sk.tuke.kpi.oop.game.scenarios.FirstSteps;
 import sk.tuke.kpi.oop.game.weapons.Firearm;
 import sk.tuke.kpi.oop.game.weapons.Gun;
 
@@ -31,6 +30,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
     private Backpack ruksak= new Backpack("Ripley's backpack",10);
 
     public static final Topic<Ripley> RIPLEY_DIED = Topic.create("ripley died", Ripley.class);
+    public static final Topic<Ripley> RIPLEY_TOPIC = Topic.create("ripley died", Ripley.class);
     private Health health;
     private int speed;
     private Firearm weapon;
@@ -45,10 +45,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         speed=1;
         weapon = new Gun(0);
         health.onExhaustion(() -> {
-            this.setAnimation(new Animation("sprites/player_die.png",32,32,0.1f, Animation.PlayMode.ONCE));
-            //getScene().getMessageBus().subscribe(RIPLEY_DIED, Ripley::drain) ;
-            getScene().getMessageBus().publish(RIPLEY_DIED,this);
-            getScene().cancelActions(this);
+            restInPeace();
         });
 
         getContent();
@@ -104,7 +101,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
 
     @Override
     public Health getHealth() {
-        return health;
+        return this.health;
     }
 
     @Override
@@ -121,7 +118,10 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         }
         if(health.getValue()<=0){
             this.setAnimation(player_died);
+            System.out.println("xx");
             getScene().getMessageBus().publish(RIPLEY_DIED, this);
+            getScene().getMessageBus().publish(RIPLEY_TOPIC, this);
+            getScene().cancelActions(this);
         }
     }
 
