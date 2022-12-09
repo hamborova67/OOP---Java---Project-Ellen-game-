@@ -32,18 +32,18 @@ public class FirstSteps implements SceneListener {
         Ammo ammo = new Ammo();
         scene.addActor(ammo, 100,0);
 
-        zdravie = ripley.getEnergy();
+        zdravie = ripley.getHealth().getValue();
         sceneUpdating(scene);
 
         //new Use<>(energy).scheduleFor(ripley);
         //new Use<>(ammo).scheduleFor(ripley);
         //zdravie = ripley.getEnergy();
-
+        /*
         new When<>(
             () ->
                 ripley.intersects(energy),
                 new Use<>(energy)
-        ).scheduleFor(ripley);
+        ).scheduleFor(ripley);*/
 
 
         Hammer hammer = new Hammer(3);
@@ -58,8 +58,7 @@ public class FirstSteps implements SceneListener {
         scene.addActor(alive,100,10);
         //System.out.println(ripley.getBackpack().getCapacity());
 
-
-
+        ripley.getFirearm().reload(30);
         sceneUpdating(scene);
 
     }

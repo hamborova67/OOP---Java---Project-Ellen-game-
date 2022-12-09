@@ -15,15 +15,17 @@ public class Ammo extends AbstractActor implements Usable<Armed> {
 
     @Override
     public void useWith(Armed actor) {
-        if(actor.getFirearm().getAmmo()>=500){
+        if(actor==null){
             return;
         }
 
-        actor.getFirearm().setAmmo(actor.getFirearm().getAmmo()+50);
-        if(actor.getFirearm().getAmmo()>500){
-            actor.getFirearm().setAmmo(500);
+        if(actor.getFirearm().getMaxAmmo() > actor.getFirearm().getAmmo()){
+            actor.getFirearm().reload(50);
+            if(getScene()!=null){
+                getScene().removeActor(this);
+            }
         }
-        getScene().removeActor(this);
+
     }
 
     @Override

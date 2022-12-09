@@ -34,7 +34,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         health = new Health(100,100);
         setAmmo(400);
         speed=1;
-        weapon = new Gun(100,100);
+        weapon = new Gun(0);
         if(getScene()!=null){
             health.onExhaustion(() -> restInPeace());
         }
@@ -85,7 +85,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         }
         int windowHeight = getScene().getGame().getWindowSetup().getHeight();
         int yTextPos = windowHeight - GameApplication.STATUS_LINE_OFFSET;
-        getScene().getGame().getOverlay().drawText("| Energy: "+this.getEnergy()+" | Ammo: "+this.getAmmo(), 100 , yTextPos);
+        getScene().getGame().getOverlay().drawText("| Energy: "+this.getHealth().getValue()+" | Ammo: "+this.getFirearm().getAmmo(), 100 , yTextPos);
     }
 
     @Override

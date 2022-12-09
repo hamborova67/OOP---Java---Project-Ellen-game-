@@ -33,7 +33,6 @@ public class Health {
             }else {
                 exhaust();
             }
-
         }else {
             exhaust();
         }
@@ -45,7 +44,11 @@ public class Health {
         if(effectList == null){
             return;
         }
-        effectList.forEach(ExhaustionEffect::apply);
+        for(ExhaustionEffect e : effectList){
+            e.apply();
+        }
+        //effectList.forEach(ExhaustionEffect::apply);
+
     }
     public void onExhaustion(ExhaustionEffect effect){
         if(effectList==null){

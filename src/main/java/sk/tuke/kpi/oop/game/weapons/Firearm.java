@@ -11,6 +11,7 @@ public abstract class Firearm {
     }
     public Firearm(int initAmmo){
         this.initAmmo = initAmmo;
+        this.maxAmmo = 100;
     }
 
 
@@ -22,15 +23,20 @@ public abstract class Firearm {
         return initAmmo;
     }
     public void reload(int newAmmo){
-        int ammoPom = initAmmo+newAmmo;
-
+        int ammoPom = getAmmo()+newAmmo;
         if(ammoPom<maxAmmo){
-            initAmmo=ammoPom;
+            setAmmo(ammoPom);
+
         }else{
-            initAmmo=maxAmmo;
+            setAmmo(maxAmmo);
         }
 
     }
+
+    public int getMaxAmmo() {
+        return maxAmmo;
+    }
+
     public Fireable fire(){
         if(initAmmo<=0){
             return null;

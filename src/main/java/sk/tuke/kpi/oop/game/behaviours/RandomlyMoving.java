@@ -17,10 +17,10 @@ public class RandomlyMoving implements Behaviour<Movable>{
         if (movable==null) {
             return;
         }
-        new Loop<>(new ActionSequence<>(new Invoke<>(this::RandomlyMovingx), new Wait<>(3))).scheduleFor(movable);
+        new Loop<>(new ActionSequence<>(new Invoke<>(this::RandomeMove), new Wait<>(3))).scheduleFor(movable);
     }
 
-    private void RandomlyMovingx(Movable movable) {
+    private void RandomeMove(Movable movable) {
 
         if(movable==null){
             return;

@@ -31,10 +31,12 @@ public enum Direction {
         if(angle < 0){
             angle += 360;
         }
-        if(dx==1 || dx==-1){
+        if((dx==1 || dx==-1) && dy==0){
             angle=angle-180;
         }
-
+        if(dx !=0 && dy != 0){
+            angle=-angle;
+        }
         return angle;
     }
     public static Direction fromAngle(float angle){
@@ -67,19 +69,9 @@ public enum Direction {
 
     }
     public Direction combine(Direction other){
-        int x=0,y=0;
-
-        if(getDx()==other.getDx()){
-            x=getDx();
-        }else{
-            x= getDx() + other.getDx() ;
-        }
-
-        if(getDy()==other.getDy()){
-            y=getDy();
-        }else {
-            y=getDy() + other.getDy();
-        }
+        int x,y;
+        x= getDx() + other.getDx() ;
+        y=getDy() + other.getDy();
 
         if(x==2 || x==-2 ){
             x=x/2;

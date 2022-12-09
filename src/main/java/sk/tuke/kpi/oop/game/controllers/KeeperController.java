@@ -30,9 +30,13 @@ public class KeeperController implements KeyboardListener {
             new Shift<>().scheduleFor(keeper);
         }
         if(key == Input.Key.U){ //use
+            if(keeper.getScene()==null){
+                return;
+            }
             for(Actor actor1 : keeper.getScene().getActors()){
-                if(actor1 instanceof Usable && keeper.intersects(actor1)){
-                    new Use<>((Usable<?>)actor1).scheduleForIntersectingWith(keeper);
+                if(actor1 instanceof Usable && actor1.intersects(keeper)){
+                    Use<?> myUse =  new Use<>((Usable<?>)actor1);
+                    myUse.scheduleForIntersectingWith(keeper);
                 }
             }
 
@@ -43,7 +47,7 @@ public class KeeperController implements KeyboardListener {
                 return;
             }
 
-            if(peek instanceof Usable && keeper.intersects(peek)){
+            if(peek instanceof Usable){
                 new Use<>((Usable<?>)peek).scheduleForIntersectingWith(keeper);
             }
 
