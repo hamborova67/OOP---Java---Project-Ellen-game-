@@ -8,60 +8,49 @@ import sk.tuke.kpi.oop.game.items.Usable;
 
 public class Door extends AbstractActor implements Openable, Usable<Actor> {
     private Animation doorc;
-    private Animation dooro;
 
     public static final Topic<Door> DOOR_OPENED  = Topic.create("door opened", Door.class);
     public static final Topic<Door> DOOR_CLOSED = Topic.create("door closed", Door.class);
-    private String name;
-    private Orientation orientation;
+
     private boolean door;
 
     enum Orientation { VERTICAL, HORIZONTAL }
 
     public Door(String name, Orientation orientation){
-
-        this.name =name;
-        this.orientation=orientation;
+        super(name);
         this.door=false;
-
         if(Orientation.VERTICAL==orientation){
-            this.doorc = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE);
-            this.dooro = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE_REVERSED);
-            setAnimation(doorc);
-            doorc.pause();
+            this.doorc = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE_REVERSED);
         }
-
         if(Orientation.HORIZONTAL==orientation){
-            this.doorc = new Animation("sprites/hdoor.png",16,32,0.1f, Animation.PlayMode.ONCE);
-            this.dooro = new Animation("sprites/hdoor.png",16,32,0.1f, Animation.PlayMode.ONCE_REVERSED);
-            setAnimation(doorc);
-            doorc.pause();
+            this.doorc = new Animation("sprites/hdoor.png",16,32,0.1f, Animation.PlayMode.ONCE_REVERSED);
         }
-
-
+        setAnimation(doorc);
+        doorc.pause();
 
     }
     @Override
     public void open() {
         if(getScene()!=null){
-            getScene().getMessageBus().publish(DOOR_OPENED,this);
-        }
-
+            return; }
+        getScene().getMessageBus().publish(DOOR_OPENED,this);
         door=true;
-        this.dooro.setPlayMode(Animation.PlayMode.ONCE);
-        getScene().getMap().getTile(getPosX(),getPosY()).setType(MapTile.Type.CLEAR);
-        dooro.play();
-        dooro.pause();
+        this.doorc.setPlayMode(Animation.PlayMode.ONCE);
+        getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 + 1).setType(MapTile.Type.CLEAR);
+        getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 ).setType(MapTile.Type.CLEAR);
+        doorc.play();
+        doorc.pause();
 
     }
 
     @Override
     public void close() {
-        if(getScene()!=null){
-        getScene().getMessageBus().publish(DOOR_CLOSED,this);}
+        if(getScene()!=null){return;}
+        getScene().getMessageBus().publish(DOOR_CLOSED,this);
         door=false;
         this.doorc.setPlayMode(Animation.PlayMode.ONCE_REVERSED);
-        getScene().getMap().getTile(getPosX(),getPosY()).setType(MapTile.Type.WALL);
+        getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 + 1).setType(MapTile.Type.WALL);
+        getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 ).setType(MapTile.Type.WALL);
         doorc.play();
         doorc.pause();
     }
