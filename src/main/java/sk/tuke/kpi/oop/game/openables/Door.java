@@ -9,29 +9,29 @@ import sk.tuke.kpi.gamelib.messages.Topic;
 import sk.tuke.kpi.oop.game.items.Usable;
 
 public class Door extends AbstractActor implements Openable, Usable<Actor> {
-    private Animation doorc,dooro;
+    private Animation doorc;
 
     public static final Topic<Door> DOOR_OPENED  = Topic.create("door opened", Door.class);
     public static final Topic<Door> DOOR_CLOSED = Topic.create("door closed", Door.class);
 
-    private boolean door;
+    private boolean mojedvere;
     private boolean raz ;
+    private final String sourceVertical = "sprites/vdoor.png";
+
     private Orientation orientation;
     private enum Orientation { VERTICAL, HORIZONTAL }
 
     public Door(String name, Orientation orientation){
         super(name);
-        door=false;
+        mojedvere=false;
+        String sourceHorizontal = "sprites/hdoor.png";
         this.orientation=orientation;
         this.raz=false;
         if(Orientation.VERTICAL==orientation){
-
-            this.doorc = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE);
-            this.dooro = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE_REVERSED);
+            this.doorc = new Animation(sourceVertical,16,32,0.1f, Animation.PlayMode.ONCE);
         }
         if(Orientation.HORIZONTAL==orientation){
-            this.doorc = new Animation("sprites/hdoor.png",32,16,0.1f, Animation.PlayMode.ONCE);
-            this.dooro = new Animation("sprites/hdoor.png",32,16,0.1f, Animation.PlayMode.ONCE_REVERSED);
+            this.doorc = new Animation(sourceHorizontal,32,16,0.1f, Animation.PlayMode.ONCE);
 
         }if(doorc!=null){
             setAnimation(doorc);
@@ -41,11 +41,10 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
     }
 
     public Door() {
-        this.doorc = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE);
-        this.dooro = new Animation("sprites/vdoor.png",16,32,0.1f, Animation.PlayMode.ONCE_REVERSED);
+        this.doorc = new Animation(sourceVertical,16,32,0.1f, Animation.PlayMode.ONCE);
         setAnimation(doorc);
         doorc.stop();
-        door = false;
+        mojedvere = false;
         orientation=Orientation.VERTICAL;
 
     }
@@ -54,7 +53,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
 
     @Override
     public void open() {
-        door= true;
+        mojedvere= true;
         if(getScene()==null){
             return;
         }
@@ -67,14 +66,15 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
         if(Orientation.HORIZONTAL==orientation){
             getScene().getMap().getTile(getPosX() / 16+1, getPosY() / 16).setType(MapTile.Type.CLEAR);
         }
-        setAnimation(dooro);
+        getAnimation().setPlayMode(Animation.PlayMode.ONCE_REVERSED);
+
         myDoorSwitch();
 
     }
 
     @Override
     public void close() {
-        door = false;
+        mojedvere = false;
         if(getScene()==null){
             return;
         }
@@ -86,7 +86,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
         if(Orientation.HORIZONTAL==orientation){
             getScene().getMap().getTile(getPosX() / 16+1, getPosY() / 16).setType(MapTile.Type.WALL);
         }
-        setAnimation(doorc);
+        getAnimation().setPlayMode(Animation.PlayMode.ONCE);
         myDoorSwitch();
     }
     public void myDoorSwitch(){
@@ -97,7 +97,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
 
     @Override
     public boolean isOpen() {
-        return door;
+        return mojedvere;
     }
 
     @Override
@@ -116,8 +116,8 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
     @Override
     public void addedToScene(@NotNull Scene scene) {
         super.addedToScene(scene);
-        if(getScene()!=null || !raz){
-            if(!isOpen()){
+        if(getScene()!=null && !raz &&!isOpen()){
+
                 getScene().getMap().getTile(getPosX() / 16, getPosY() / 16).setType(MapTile.Type.WALL);
                 if(Orientation.VERTICAL==orientation){
                     getScene().getMap().getTile(getPosX() / 16, getPosY() / 16 + 1).setType(MapTile.Type.WALL);
@@ -126,7 +126,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
                     getScene().getMap().getTile(getPosX() / 16+1, getPosY() / 16).setType(MapTile.Type.WALL);
                 }
                 raz=true;
-            }
+
         }
 
     }
