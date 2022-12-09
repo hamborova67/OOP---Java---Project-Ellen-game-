@@ -33,8 +33,8 @@ public class MissionImpossible implements SceneListener {
         KeeperController kc = new KeeperController(ripley);
         scene.getInput().registerListener(kc);
 
-        Door door = new Door("x", Door.Orientation.VERTICAL);
-        scene.addActor(door,100,65);
+        //Door door = new Door("x", Door.Orientation.VERTICAL);
+        //scene.addActor(door,100,65);
 
 
         //KeeperController kc = new KeeperController(ripley);

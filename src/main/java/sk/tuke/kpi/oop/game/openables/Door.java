@@ -17,7 +17,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor> {
     private boolean door;
     private boolean raz ;
     private Orientation orientation;
-    public enum Orientation { VERTICAL, HORIZONTAL }
+    private enum Orientation { VERTICAL, HORIZONTAL }
 
     public Door(String name, Orientation orientation){
         super(name);
