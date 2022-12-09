@@ -1,6 +1,5 @@
 package sk.tuke.kpi.oop.game.controllers;
 import org.jetbrains.annotations.NotNull;
-import sk.tuke.kpi.gamelib.Disposable;
 import sk.tuke.kpi.gamelib.Input;
 import sk.tuke.kpi.gamelib.KeyboardListener;
 import sk.tuke.kpi.oop.game.Direction;
@@ -22,8 +21,7 @@ public class MovableController implements KeyboardListener {
     private Set<Input.Key> majkis;
     private Input.Key key1 =null;
     private Input.Key key2 =null;
-    private Direction direction1;
-    private Disposable disposable;
+
     private Move<Movable> move;
     public MovableController(Movable movable){
         majkis= new HashSet<>();
