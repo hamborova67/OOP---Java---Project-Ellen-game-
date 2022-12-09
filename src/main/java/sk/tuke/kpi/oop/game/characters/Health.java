@@ -1,5 +1,6 @@
 package sk.tuke.kpi.oop.game.characters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Health {
@@ -9,10 +10,12 @@ public class Health {
     public Health(int initHealth, int maxHealth){
         this.initHealth = initHealth;
         this.maxHealth = maxHealth;
+        this.mojeffectList = new ArrayList<>();
     }
     public Health(int initHealth){
         this.initHealth = initHealth;
         this.maxHealth= initHealth;
+        this.mojeffectList = new ArrayList<>();
     }
     public int getValue(){
         return initHealth;
