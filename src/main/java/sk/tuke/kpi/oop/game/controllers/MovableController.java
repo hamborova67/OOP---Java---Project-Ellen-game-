@@ -21,6 +21,7 @@ public class MovableController implements KeyboardListener {
     private Set<Input.Key> majkis;
     private Input.Key key1 =null;
     private Input.Key key2 =null;
+    private Direction direction1;
 
     private Move<Movable> move;
     public MovableController(Movable movable){
@@ -33,11 +34,12 @@ public class MovableController implements KeyboardListener {
     public void keyPressed(@NotNull Input.Key key) {
         KeyboardListener.super.keyPressed(key);
 
-        if(move != null){
+        if(keyDirectionMap.containsKey(key)){
+            if(move != null){
             move.stop();
+
             move=null;
         }
-        if(keyDirectionMap.containsKey(key)){
             majkis.add(key);
             if(key1==null)
                 key1 = key;
@@ -45,17 +47,10 @@ public class MovableController implements KeyboardListener {
             if(key2==null)
                 key2=key;
 
-            Direction direction1 = null;
-
-            int i = 0;
+            direction1 = null;
             for (Input.Key ki:majkis) {
-                if (i==0)
                     direction1=keyDirectionMap.get(ki);
-                if (i==1)
-                    direction1 = direction1.combine(keyDirectionMap.get(ki));
-                i++;
             }
-
             if (direction1!=null) {
                 move = new Move<>(direction1, Float.MAX_VALUE);
                 move.scheduleFor(movable);
@@ -75,6 +70,21 @@ public class MovableController implements KeyboardListener {
 
         if(keyDirectionMap.containsKey(key)){
             move.stop();
+        }
+        direction1 = null;
+
+        int i = 0;
+        for (Input.Key ki:majkis) {
+            if (i==0)
+                direction1=keyDirectionMap.get(ki);
+            if (i==1)
+                direction1 = direction1.combine(keyDirectionMap.get(ki));
+            i++;
+        }
+
+        if (direction1!=null) {
+            move = new Move<>(direction1, Float.MAX_VALUE);
+            move.scheduleFor(movable);
         }
     }
 }

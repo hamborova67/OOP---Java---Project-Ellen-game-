@@ -8,19 +8,16 @@ import sk.tuke.kpi.oop.game.Movable;
 import sk.tuke.kpi.oop.game.actions.Move;
 
 public class RandomlyMoving implements Behaviour<Movable>{
-    public RandomlyMoving(){
-
-    }
 
     @Override
     public void setUp(Movable movable) {
         if (movable==null) {
             return;
         }
-        new Loop<>(new ActionSequence<>(new Invoke<>(this::RandomeMove), new Wait<>(3))).scheduleFor(movable);
+        new Loop<>(new ActionSequence<>(new Invoke<>(this::random), new Wait<>(3))).scheduleFor(movable);
     }
 
-    private void RandomeMove(Movable movable) {
+    private void random(Movable movable) {
 
         if(movable==null){
             return;

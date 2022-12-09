@@ -51,10 +51,10 @@ public class Health {
 
     }
     public void onExhaustion(ExhaustionEffect effect){
-        if(effectList==null){
-            return;
+        if(effectList!=null){
+            effectList.add(effect);
         }
-        effectList.add(effect);
+
     }
     @FunctionalInterface
     public interface ExhaustionEffect {

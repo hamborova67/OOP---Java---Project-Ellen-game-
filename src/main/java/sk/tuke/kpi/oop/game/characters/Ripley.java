@@ -42,7 +42,9 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         speed=1;
         weapon = new Gun(0);
         if(getScene()!=null){
-            health.onExhaustion(this::restInPeace);
+            this.setAnimation(new Animation("sprites/player_die.png",32,32,0.1f, Animation.PlayMode.ONCE));
+            getScene().getMessageBus().publish(RIPLEY_DIED,this);
+
         }
         getContent();
 
@@ -109,25 +111,22 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive, Arm
         this.weapon =weapon;
     }
     public void restInPeace(){
-
+        if(getScene()==null){
+            return;
+        }
         if(health.getValue()<=0){
             this.setAnimation(player_died);
-            if(getScene()==null){
-                return;
-            }
-            getScene().getMessageBus().publish(RIPLEY_DIED,this);
-
+            getScene().getMessageBus().publish(RIPLEY_DIED, this);
         }
     }
 
     public void drain() {
-
+        restInPeace();
         new Loop<>( new ActionSequence<>(
                     new Invoke<>(this::restInPeace),
                     new Wait<>(1),
                     new Invoke<>(()-> health.drain(20))
                 )).scheduleFor(this);
-
 
     }
 

@@ -3,7 +3,6 @@ package sk.tuke.kpi.oop.game.weapons;
 public abstract class Firearm {
     private int initAmmo;
     private int maxAmmo;
-    private Fireable fireable;
 
     public Firearm(int initAmmo, int maxAmmo){
         this.initAmmo = initAmmo;
@@ -11,7 +10,7 @@ public abstract class Firearm {
     }
     public Firearm(int initAmmo){
         this.initAmmo = initAmmo;
-        this.maxAmmo = 100;
+        this.maxAmmo = initAmmo;
     }
 
 
